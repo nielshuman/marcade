@@ -18,7 +18,7 @@ def open_kiosk(tabs):
     return subprocess.Popen(['chromium'] + tabs + CHROMIUM_FLAGS, 
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-gserver = DingesServer('gunwizard')
+gserver = DingesServer('games/gunwizard')
 
 pgserver = Process(target=gserver.serve, args=(8005,))
 pgserver.start()
