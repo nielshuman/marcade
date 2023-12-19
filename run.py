@@ -23,7 +23,7 @@ gserver = DingesServer('games/gunwizard')
 pgserver = Process(target=gserver.serve, args=(8005,))
 pgserver.start()
 
-pkiosk = open_kiosk(['http://randomcolour.com/', '127.0.0.1:8005/'])
+pkiosk = open_kiosk(['http://randomcolour.com/', 'pws.justniels.nl', '127.0.0.1:8005/'])
 
 while pkiosk.poll() is None:
     print("Process is running.")
