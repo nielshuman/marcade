@@ -17,7 +17,7 @@ def open_kiosk(tabs):
     ]
     
     return subprocess.Popen(['chromium-browser'] + tabs + CHROMIUM_FLAGS, 
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=dict(os.environ, DISPLAY=':0'))
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'DISPLAY':':0'})
 
 gserver = DingesServer('games/gunwizard')
 
