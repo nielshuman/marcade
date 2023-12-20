@@ -3,6 +3,7 @@ import time
 from multiprocessing import Process
 # from serve import Kutserver
 from serve2 import DingesServer
+import os
 
 def open_kiosk(tabs):
     CHROMIUM_FLAGS = [
@@ -15,7 +16,8 @@ def open_kiosk(tabs):
     '--start-maximized'
     ]
     
-    return subprocess.Popen(['chromium'] + tabs + CHROMIUM_FLAGS, 
+    os.environ['DISPLAY'] = ':0'
+    return subprocess.Popen(['chromium-browser'] + tabs + CHROMIUM_FLAGS, 
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 gserver = DingesServer('games/gunwizard')
