@@ -13,6 +13,7 @@ pkiosk = open_kiosk(menu.url, gunwizard.url)
 
 while pkiosk.poll() is None:
     print("Process is running.")
+    time.sleep(1)
 
 gunwizard.stop()
 menu.stop()
