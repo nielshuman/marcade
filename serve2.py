@@ -33,6 +33,7 @@ class DingesServer():
         
     def stop(self):
         self.process.terminate()
+        self.process.join()
 
 if __name__ == '__main__':
     s = DingesServer('gunwizard')
