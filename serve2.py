@@ -1,10 +1,13 @@
 from flask import Flask, send_from_directory
 from waitress import serve
+from multiprocessing import Process
 
 class DingesServer():
-    def __init__(self, directory):
+    def __init__(self, directory, port):
+        self.port = port
         self.app = Flask(__name__)
         self.directory = directory
+        self.url = f'http://localhost:{port}/'
         @self.app.route('/')
         def index():
             return serve_static('index.html')
@@ -21,9 +24,15 @@ class DingesServer():
             response.headers['Expires'] = '0'
             return response
     
-    def serve(self, port):
-        serve(self.app, port=port)
+    def serve(self):
+        serve(self.app, port=self.port)
     
+    def start(self):
+        self.process = Process(target=self.serve)
+        self.process.start()
+        
+    def stop(self):
+        self.process.terminate()
 
 if __name__ == '__main__':
     s = DingesServer('gunwizard')

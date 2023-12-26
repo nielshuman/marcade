@@ -1,12 +1,20 @@
 import subprocess
 import time
-from multiprocessing import Process
 # from serve import Kutserver
 from serve2 import DingesServer
 import os
+CHROMIUM = ()
 
-def open_kiosk(tabs):
-    CHROMIUM_FLAGS = [
+def open_kiosk(*tabs):
+    global CHROMIUM
+    if not CHROMIUM:
+        if os.system("dpkg -s chromium-browser | grep Status") == 0:
+            CHROMIUM = ('chromium-browser',)
+        elif os.system("dpkg -s chromium | grep Status") == 0:
+            CHROMIUM = ('chromium',)
+        else:
+            raise Exception('Chromium not installed')
+    CHROMIUM_FLAGS = (
     '--kiosk',
     '--noerrdialogs',
     '--disable-infobars',
@@ -14,20 +22,18 @@ def open_kiosk(tabs):
     '--ozone-platform=wayland',
     '--enable-features=OverlayScrollbar',
     '--start-maximized'
-    ]
-    
-    return subprocess.Popen(['chromium-browser'] + tabs + CHROMIUM_FLAGS, 
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    ) 
+    return subprocess.Popen(CHROMIUM + tabs + CHROMIUM_FLAGS,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-gserver = DingesServer('games/gunwizard')
+gunwizard = DingesServer('games/gunwizard', 8005)
+gunwizard.start()
 
-pgserver = Process(target=gserver.serve, args=(8005,))
-pgserver.start()
-
-pkiosk = open_kiosk(['http://randomcolour.com/', 'pws.justniels.nl', '127.0.0.1:8005/'])
+pkiosk = open_kiosk('randomcolour.com', gunwizard.url)
 
 while pkiosk.poll() is None:
     print("Process is running.")
     time.sleep(2)
     
-pgserver.terminate()
+# pkiosk = open_kiosk(['http://randomcolour.com/', 'pws.justniels.nl', '127.0.0.1:8005/'])
+
+gunwizard.stop()
