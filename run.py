@@ -1,6 +1,6 @@
 import time
 from serve2 import DingesServer
-from chromium import open_kiosk
+from chromium import kiosk_driver, kiosk_subprocess
 
 menu = DingesServer('menu', 8000)
 menu.start()
@@ -9,7 +9,7 @@ gunwizard = DingesServer('games/gunwizard', 8005)
 gunwizard.start()
 
 
-pkiosk = open_kiosk(menu.url, gunwizard.url)
+pkiosk = kiosk_subprocess(menu.url, gunwizard.url)
 
 while pkiosk.poll() is None:
     print("Process is running.")
@@ -18,4 +18,4 @@ while pkiosk.poll() is None:
 gunwizard.stop()
 menu.stop()
 
-open_kiosk('https://fallingfalling.com')
+kiosk_driver('https://fallingfalling.com')

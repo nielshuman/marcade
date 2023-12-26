@@ -1,8 +1,9 @@
 CHROMIUM = ()
 import subprocess, os
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
-
-def open_kiosk(*tabs: str):
+def kiosk_subprocess(*tabs: str):
     """
     Open Chromium in kiosk mode with specified tabs.
     """
@@ -26,3 +27,24 @@ def open_kiosk(*tabs: str):
     '--start-maximized'
     ) 
     return subprocess.Popen(CHROMIUM + tabs + CHROMIUM_FLAGS,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+def kiosk_driver(*tabs: str):
+    """
+    Open Chromium in kiosk mode with specified tabs using Selenium WebDriver.
+    """
+
+    chrome_options = Options()
+    chrome_options.add_argument('--kiosk')
+    chrome_options.add_argument('--noerrdialogs')
+    chrome_options.add_argument('--disable-infobars')
+    chrome_options.add_argument('--no-first-run')
+    chrome_options.add_argument('--ozone-platform=wayland')
+    chrome_options.add_argument('--enable-features=OverlayScrollbar')
+    chrome_options.add_argument('--start-maximized')
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+
+    driver = webdriver.Chrome(options=chrome_options)
+    for tab in tabs:
+        driver.execute_script(f"window.open('{tab}', '_blank')")
+    
+    return driver
