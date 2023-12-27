@@ -8,14 +8,14 @@ print('Launching menu...')
 
 menu = DingesServer('menu', 8000, socketio=True)
 
-# @menu.socketio.on('launch_game')
-# def poep(game):
-#     game = DingesServer(f'games/{game}', 6003)
-#     game.start()
-#     kiosk.get(game.url)
+@menu.socketio.on('launch_game')
+def poep(game):
+    game = DingesServer(f'games/{game}', 6003)
+    game.start()
+    kiosk.get(game.url)
 
 menu.start()
-kiosk.get(menu.url + 'arcade-menu.html')
+kiosk.get(menu.url)
 
 gunwizard = DingesServer('games/gunwizard', 8005)
 gunwizard.start()
