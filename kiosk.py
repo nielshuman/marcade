@@ -42,6 +42,7 @@ def kiosk_driver(url: str = None):
     chrome_options.add_argument('--enable-features=OverlayScrollbar')
     chrome_options.add_argument('--start-maximized')
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    # chrome_options.add_experimental_option("detach", True)
 
     driver = webdriver.Chrome(options=chrome_options)
     if url: driver.get(url)
