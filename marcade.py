@@ -6,18 +6,16 @@ print('Launching chrome...')
 kiosk = kiosk_driver()
 print('Launching menu...')
 
-
 menu = DingesServer('menu', 8000, socketio=True)
-@menu.socketio.on('my event')
-def handle_my_custom_event(json):
-    print('received json: ' + str(json))
-    kiosk.get(menu.url)
-    # after 5 seconds, go back to menu
-    time.sleep(5)
-    kiosk.get(menu.url)
+
+# @menu.socketio.on('launch_game')
+# def poep(game):
+#     game = DingesServer(f'games/{game}', 6003)
+#     game.start()
+#     kiosk.get(game.url)
 
 menu.start()
-kiosk.get(menu.url)
+kiosk.get(menu.url + 'arcade-menu.html')
 
 gunwizard = DingesServer('games/gunwizard', 8005)
 gunwizard.start()
