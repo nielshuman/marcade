@@ -7,13 +7,24 @@
     <style>
         body {
             margin: 0;
-            background: linear-gradient(to right, #222, #333);
+            background: linear-gradient(to right, #222, #ae0000);
             color: #fff;
             font-family: Arial, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
+            animation: gradientAnimation 5s linear infinite alternate-reverse;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
         }
 
         .menu {
@@ -34,12 +45,13 @@
             cursor: pointer;
             font-size: 20px;
             color: #fff;
+            transition: all 0.3s ease-in-out;
         }
 
         .option.selected {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
-            text-decoration: underline;
+            /* text-decoration: underline; */
         }
 
         .image {
@@ -68,7 +80,7 @@
     </div>
 
     <script>
-        const optionsArray = ["Option 1", "Option 2", "Option 3", "Option 4"];
+        const optionsArray = ["Gunwizard", "Construction", "Option 3", "Option 4"];
         const optionsContainer = document.getElementById('options-container');
         let selectedIndex = 0;
 

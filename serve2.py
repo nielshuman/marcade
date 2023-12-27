@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, request
 from multiprocessing import Process
 from flask_socketio import SocketIO
 import eventlet
@@ -21,6 +21,9 @@ class DingesServer():
         
         @self.app.route('/<path:filename>')
         def serve_static(filename):
+            if filename == 'socket.js':
+                return send_from_directory('lib', 'socket.js')
+            
             response = send_from_directory(self.directory, filename)
             response.headers['Cross-Origin-Opener-Policy'] = 'same-origin'
             response.headers['Cross-Origin-Embedder-Policy'] = 'require-corp'
@@ -32,7 +35,7 @@ class DingesServer():
             response.headers['Pragma'] = 'no-cache'
             response.headers['Expires'] = '0'
             return response
-    
+        
     def serve(self):
         if self.socketio:
             self.socketio.run(self.app, port=self.port)
@@ -53,7 +56,5 @@ if __name__ == '__main__':
 
 def inject_socketio(response):
     response.direct_passthrough = False
-    injected_html = '''
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-'''
+    injected_html = '<script src="/socket.js" crossorigin="anonymous"></script>'
     response.set_data(response.get_data().replace(b'</head>', f'{injected_html}</head>'.encode()))
