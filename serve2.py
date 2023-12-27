@@ -2,6 +2,8 @@ from flask import Flask, send_from_directory, request
 from multiprocessing import Process
 from flask_socketio import SocketIO
 import eventlet
+from eventlet import wsgi
+from waitress import serve
 eventlet.monkey_patch()
 
 class DingesServer():
@@ -37,10 +39,12 @@ class DingesServer():
             return response
         
     def serve(self):
+        print(f'Serving {self.directory} on {self.url}')
         if self.socketio:
             self.socketio.run(self.app, port=self.port)
         else:
-            eventlet.wsgi.server(eventlet.listen(('', self.port)), self.app)
+            wsgi.server(eventlet.listen(('', self.port)), self.app)
+            # serve(self.app, port=self.port)
     
     def start(self):
         self.process = Process(target=self.serve)
@@ -49,10 +53,6 @@ class DingesServer():
     def stop(self):
         self.process.terminate()
         self.process.join()
-
-if __name__ == '__main__':
-    s = DingesServer('gunwizard')
-    s.start()
 
 def inject_socketio(response):
     response.direct_passthrough = False

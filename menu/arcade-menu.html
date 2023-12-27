@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +23,7 @@
             0% {
                 background-position: 0% 50%;
             }
+
             100% {
                 background-position: 100% 50%;
             }
@@ -67,12 +69,14 @@
             0% {
                 opacity: 1;
             }
+
             100% {
                 opacity: 0;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="menu">
         <div class="options" id="options-container"></div>
@@ -80,9 +84,10 @@
     </div>
 
     <script>
-        const optionsArray = ["Gunwizard", "Construction", "Option 3", "Option 4"];
+        const optionsArray = ["gunwizard", "construction", "Option 3", "Option 4"];
         const optionsContainer = document.getElementById('options-container');
         let selectedIndex = 0;
+        let socket = io();
 
         function highlightOption(index) {
             const options = document.querySelectorAll('.option');
@@ -100,8 +105,9 @@
                 selectedIndex--;
             } else if (event.key === 'ArrowDown' && selectedIndex < optionsArray.length - 1) {
                 selectedIndex++;
-            }
-
+            } else if (event.key === 'Enter') {
+                    socket.emit('launch_game', optionsArray[selectedIndex]);
+                }
             highlightOption(selectedIndex);
         }
 
@@ -119,4 +125,5 @@
         highlightOption(selectedIndex);
     </script>
 </body>
+
 </html>

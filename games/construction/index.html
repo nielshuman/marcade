@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Construction</title>
+    <style>
+        body {
+            background-color: #f1f1f1;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .construction-image {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Marcade is onder constructie!</h1>
+    <p>WTarp tarp atarp, het is onder constructie</p>
+    <img src="construction.png" alt="Under Construction" class="construction-image">
+
+    <script>
+        let socket = io();
+
+        document.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                socket.emit('launch_game', 'gunwizard');
+            }
+        });
+    </script>
+</body>
+</html>
