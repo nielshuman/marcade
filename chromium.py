@@ -28,7 +28,7 @@ def kiosk_subprocess(*tabs: str):
     ) 
     return subprocess.Popen(CHROMIUM + tabs + CHROMIUM_FLAGS,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-def kiosk_driver(url: str):
+def kiosk_driver(url: str = None):
     """
     Open Chromium in kiosk mode with a specified URL using Selenium WebDriver.
     """
@@ -44,6 +44,6 @@ def kiosk_driver(url: str):
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 
     driver = webdriver.Chrome(options=chrome_options)
-    driver.get(url)
+    if url: driver.get(url)
     
     return driver
