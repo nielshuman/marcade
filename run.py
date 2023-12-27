@@ -9,13 +9,16 @@ gunwizard = DingesServer('games/gunwizard', 8005)
 gunwizard.start()
 
 
-pkiosk = kiosk_subprocess(menu.url, gunwizard.url)
+# pkiosk = kiosk_subprocess(menu.url, gunwizard.url)
+kiosk = kiosk_driver(menu.url)
+time.sleep(5)
+kiosk.get('chrome://gpu/')
+time.sleep(10)
 
-while pkiosk.poll() is None:
-    print("Process is running.")
-    time.sleep(1)
+# while pkiosk.poll() is None:
+#     print("Process is running.")
+#     time.sleep(1)
+
 
 gunwizard.stop()
 menu.stop()
-
-kiosk_driver('https://fallingfalling.com')
