@@ -5,7 +5,8 @@ from selenium.webdriver.chrome.options import Options
 
 def kiosk_subprocess(*tabs: str):
     """
-    Open Chromium in kiosk mode with specified tabs.
+    Open Chromium in kiosk mode with specified tabs, using subprocess.
+    Returns a subprocess.Popen object.
     """
 
     global CHROMIUM
@@ -30,7 +31,8 @@ def kiosk_subprocess(*tabs: str):
 
 def kiosk_driver(url: str = None):
     """
-    Open Chromium in kiosk mode with a specified URL using Selenium WebDriver.
+    Open Chromium in kiosk mode using Selenium WebDriver.
+    Optionally, open a URL.
     """
 
     chrome_options = Options()
@@ -48,3 +50,13 @@ def kiosk_driver(url: str = None):
     if url: driver.get(url)
     
     return driver
+
+def is_open(driver: webdriver.Chrome):
+    """
+    Checks if a browser is open by attempting to access the driver's title.
+    """
+    try:
+        driver.title
+        return True
+    except:
+        return False
