@@ -1,13 +1,17 @@
-from flask import Flask, send_from_directory, request
+from flask import Flask, send_from_directory, redirect
 from multiprocessing import Process
 from flask_socketio import SocketIO
 import eventlet
 from eventlet import wsgi
 from waitress import serve
 eventlet.monkey_patch()
+import os
 
 class DingesServer():
-    def __init__(self, directory, port, socketio=False):
+    def __init__(self, directory, port, socketio=False, waitress=False):
+        if socketio and waitress:
+            raise Exception('Cant use socketio with waitress')
+        self.waitress = waitress
         self.port = port
         self.app = Flask(__name__)
         self.directory = directory
@@ -17,20 +21,21 @@ class DingesServer():
         else:
             self.socketio = None
 
-        @self.app.route('/')
-        def index():
-            return serve_static('index.html')
-        
-        @self.app.route('/<path:filename>')
-        def serve_static(filename):
-            if filename == 'socket.js':
+        @self.app.route('/', defaults={'path': ''})
+        @self.app.route('/<path:path>') 
+        def serve_static(path=''): 
+            if path == 'socket.js':
                 return send_from_directory('lib', 'socket.js')
+            if os.path.isdir(os.path.join(self.directory, path)):
+                if not path.endswith('/'):
+                    return redirect(path + '/')
+                path = os.path.join(path, 'index.html')
             
-            response = send_from_directory(self.directory, filename)
+            response = send_from_directory(self.directory, path)
             response.headers['Cross-Origin-Opener-Policy'] = 'same-origin'
             response.headers['Cross-Origin-Embedder-Policy'] = 'require-corp'
 
-            if filename.endswith('.html'): inject_socketio(response)
+            if path.endswith('.html'): inject_socketio(response)
 
             # nog wat headers voor de leuk
             response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate'
@@ -42,9 +47,10 @@ class DingesServer():
         print(f'Serving {self.directory} on {self.url}')
         if self.socketio:
             self.socketio.run(self.app, port=self.port)
+        elif self.waitress:
+            serve(self.app, port=self.port)
         else:
-            wsgi.server(eventlet.listen(('', self.port)), self.app)
-            # serve(self.app, port=self.port)
+            wsgi.server(eventlet.listen(('', self.port)), self.app, log_output=False)
     
     def start(self):
         self.process = Process(target=self.serve)
@@ -52,6 +58,10 @@ class DingesServer():
         
     def stop(self):
         self.process.terminate()
+        self.process.join()
+
+    def wait(self):
+        print(f'Waiting for {self.directory}...')
         self.process.join()
 
 def inject_socketio(response):

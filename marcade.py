@@ -1,30 +1,28 @@
 import time
 from serve2 import DingesServer
-from kiosk import kiosk_driver, kiosk_subprocess
+from kiosk import kiosk_driver, kiosk_subprocess, is_open
 
-print('Launching chrome...')
+gamesServer = DingesServer('games', 8200)
+gamesServer.start()
+
 kiosk = kiosk_driver()
-print('Launching menu...')
 
-gunwizard = DingesServer('games/gunwizard', 8001, socketio=False)
-gunwizard.start()
-print('Tarp!')
-menu = DingesServer('menu', 7583, socketio=True)
+menuServer = DingesServer('menu', 8201, socketio=True)
 
-@menu.socketio.on('launch_game')
+@menuServer.socketio.on('launch_game')
 def launch_game(game):
-    game = DingesServer(f'games/{game}', 8004)
-    game.start()
-    kiosk.get(game.url)
+    print('Launching game', game)
+    kiosk.get(gamesServer.url + game)
 
-menu.start()
-kiosk.get(menu.url + 'arcade-menu.html')
-# Your existing code here
+menuServer.start()
 
+kiosk.get(menuServer.url + 'index.html')
+# time.sleep(1)
+# kiosk.get('')
 
-# pkiosk = kiosk_subprocess(menu.url, gunwizard.url)
-# kiosk.get('chrome://gpu/')
+while is_open(kiosk):
+    time.sleep(1)
 
-# while pkiosk.poll() is None:
-#     print("Process is running.")
-#     time.sleep(1)
+print('Browser is closed')
+gamesServer.stop()
+menuServer.stop()
