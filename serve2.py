@@ -27,7 +27,7 @@ class DingesServer():
             if path == 'socket.js':
                 return send_from_directory('lib', 'socket.js')
             if os.path.isdir(os.path.join(self.directory, path)):
-                if not path.endswith('/'):
+                if not path.endswith('/') and path != '':
                     return redirect(path + '/')
                 path = os.path.join(path, 'index.html')
             
