@@ -16,9 +16,9 @@ def launch_game(game):
 
 menuServer.start()
 
-kiosk.get(menuServer.url + 'index.html')
-# time.sleep(1)
-# kiosk.get('')
+kiosk.get(menuServer.url + 'coin.html')
+time.sleep(1)
+kiosk.get(menuServer.url + 'select.html')
 
 while is_open(kiosk):
     time.sleep(1)

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcade Menu</title>
+    <title>Marcade Menu</title>
     <style>
         body {
             margin: 0;
@@ -15,17 +15,17 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            animation: gradientAnimation 5s linear infinite alternate-reverse;
+            animation: gradientAnimation 3.5s infinite alternate-reverse ease;
             background-size: 200% 200%;
         }
-
+        
         @keyframes gradientAnimation {
             0% {
                 background-position: 0% 50%;
             }
 
             100% {
-                background-position: 100% 50%;
+                background-position: 60% 50%;
             }
         }
 
@@ -47,7 +47,7 @@
             cursor: pointer;
             font-size: 20px;
             color: #fff;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.2s ease-in-out;
         }
 
         .option.selected {
@@ -74,21 +74,33 @@
                 opacity: 0;
             }
         }
+
+        .title {
+            font-family: 'Press Start 2P', cursive; /* Use a retro arcade font (Google Fonts example) */
+            font-size: 50px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="menu">
-        <div class="options" id="options-container"></div>
-        <div class="image"></div>
+    <div>
+        <div class="title">MARCADE</div>
+        <div class="menu">
+            <div class="options" id="options-container"></div>
+            <!-- <div class="image"></div> -->
+        </div>
     </div>
-
+        
     <script>
         const optionsArray = [
-            { name: "Gun Wizard", path: "gunwizard/index.html" },
-            { name: "Gare constructie pagina", path: "construction/index.html" },
-            { name: "Option 3", path: "#" }, // Add your display names and paths here
-            { name: "Option 4", path: "#" }
+            { name: "Gun Wizard", path: "gunwizard" },
+            { name: "Gare constructie pagina", path: "construction" },
+            { name: "Tarptarp", path: "#" }, // Add your display names and paths here
+            { name: "Cartographer", path: "#" }
         ];
 
         const optionsContainer = document.getElementById('options-container');

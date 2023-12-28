@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcade</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: 'Press Start 2P', cursive; /* Retro arcade font from Google Fonts */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            animation: backgroundFlash 1s infinite alternate;
+        }
+
+        .title {
+            font-size: 72px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            text-align: center;
+            animation: textFlash 1s steps(1) infinite alternate;
+        }
+
+        @keyframes textFlash {
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="title">MARCADE</div>
+    <div class="subtitle">PLEASE INSERT COIN</div>
+</body>
+
+</html>
