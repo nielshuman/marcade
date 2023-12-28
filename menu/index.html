@@ -84,7 +84,13 @@
     </div>
 
     <script>
-        const optionsArray = ["gunwizard/index.html", "construction/index.html", "Option 3", "Option 4"];
+        const optionsArray = [
+            { name: "Gun Wizard", path: "gunwizard/index.html" },
+            { name: "Gare constructie pagina", path: "construction/index.html" },
+            { name: "Option 3", path: "#" }, // Add your display names and paths here
+            { name: "Option 4", path: "#" }
+        ];
+
         const optionsContainer = document.getElementById('options-container');
         let selectedIndex = 0;
         let socket = io();
@@ -106,18 +112,18 @@
             } else if (event.key === 'ArrowDown' && selectedIndex < optionsArray.length - 1) {
                 selectedIndex++;
             } else if (event.key === 'Enter') {
-                    socket.emit('launch_game', optionsArray[selectedIndex]);
-                }
+                socket.emit('launch_game', optionsArray[selectedIndex].path);
+            }
             highlightOption(selectedIndex);
         }
 
         document.addEventListener('keydown', handleKeyDown);
 
         // Dynamically load options from the array
-        optionsArray.forEach((optionText, index) => {
+        optionsArray.forEach((option, index) => {
             const optionElement = document.createElement('div');
             optionElement.classList.add('option');
-            optionElement.textContent = optionText;
+            optionElement.textContent = option.name; // Display the name
             optionsContainer.appendChild(optionElement);
         });
 
