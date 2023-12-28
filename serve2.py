@@ -38,9 +38,9 @@ class DingesServer():
             if path.endswith('.html'): inject_socketio(response)
 
             # nog wat headers voor de leuk
-            response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate'
-            response.headers['Pragma'] = 'no-cache'
-            response.headers['Expires'] = '0'
+            # response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate'
+            # response.headers['Pragma'] = 'no-cache'
+            # response.headers['Expires'] = '0'
             return response
         
     def serve(self):
