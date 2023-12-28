@@ -1,15 +1,7 @@
-from multiprocessing import Process
+import sounddevice as sd
+import soundfile as sf
 import time
 
-a = 'foo'
-
-def test():
-    while True:
-        print(a)
-        time.sleep(1)
-
-p = Process(target=test)
-p.start()
-
-time.sleep(3)
-a = 'bar'
+data, fs = sf.read('coin.mp3', dtype='int16')
+sd.play(data, fs)
+time.sleep(5)
