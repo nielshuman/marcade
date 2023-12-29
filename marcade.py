@@ -1,12 +1,8 @@
 import time
+
 from serve2 import DingesServer
 from kiosk import kiosk_driver, kiosk_subprocess, is_open
-import sounddevice as sd
-import soundfile as sf
-
-def play_sound(filename, block=False):
-    sd.play(*sf.read(filename, dtype='int16'))
-    if block: sd.wait()
+from util import play_sound, listen_for_coin
 
 gamesServer = DingesServer('games', 8200)
 gamesServer.start()
@@ -21,11 +17,17 @@ def launch_game(game):
     kiosk.get(gamesServer.url + game)
 
 menuServer.start()
-
 kiosk.get(menuServer.url + 'coin.html')
+
+def coin_inserted():
+    print('Coin inserted')
+    play_sound('audio/coin.mp3')
+    kiosk.get(menuServer.url + 'select.html')
+
+listen_for_coin(17, coin_inserted)
+
 time.sleep(5)
-play_sound('audio/coin.mp3')
-kiosk.get(menuServer.url + 'select.html')
+coin_inserted()
 
 while is_open(kiosk):
     time.sleep(1)
