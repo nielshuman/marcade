@@ -27,11 +27,11 @@ def kiosk_driver(url: str = None):
     """
 
     chrome_options = Options()
-    # chrome_options.add_argument('--kiosk')
+    chrome_options.add_argument('--kiosk')
     chrome_options.add_argument('--noerrdialogs')
     chrome_options.add_argument('--disable-infobars')
     chrome_options.add_argument('--no-first-run')
-    chrome_options.add_argument('--ozone-platform=wayland')
+    # chrome_options.add_argument('--ozone-platform=wayland')
     chrome_options.add_argument('--enable-features=OverlayScrollbar')
     chrome_options.add_argument('--start-maximized')
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])

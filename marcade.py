@@ -17,7 +17,6 @@ def launch_game(game):
     kiosk.get(gamesServer.url + game)
 
 menuServer.start()
-# time.sleep(3)
 kiosk.get(menuServer.url + 'coin.html')
 
 def coin_inserted():
@@ -27,8 +26,8 @@ def coin_inserted():
 
 # listen_for_coin(17, coin_inserted)
 
-# time.sleep(5)
-# coin_inserted()
+time.sleep(5)
+coin_inserted()
 
 while is_open(kiosk):
     time.sleep(1)
