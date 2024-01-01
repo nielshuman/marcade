@@ -1,4 +1,3 @@
-CHROMIUM = ()
 import subprocess, os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -8,17 +7,9 @@ def kiosk_subprocess(*tabs: str):
     Open Chromium in kiosk mode with specified tabs, using subprocess.
     Returns a subprocess.Popen object.
     """
-
-    global CHROMIUM
-    if not CHROMIUM:
-        if os.system("dpkg -s chromium-browser | grep Status") == 0:
-            CHROMIUM = ('chromium-browser',)
-        elif os.system("dpkg -s chromium | grep Status") == 0:
-            CHROMIUM = ('chromium',)
-        else:
-            raise Exception('Chromium not installed')
     
-    CHROMIUM_FLAGS = (
+    COMMAND = (
+    'chromium'
     '--kiosk',
     '--noerrdialogs',
     '--disable-infobars',
@@ -27,7 +18,7 @@ def kiosk_subprocess(*tabs: str):
     '--enable-features=OverlayScrollbar',
     '--start-maximized'
     ) 
-    return subprocess.Popen(CHROMIUM + tabs + CHROMIUM_FLAGS,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return subprocess.Popen(COMMAND + tabs, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 def kiosk_driver(url: str = None):
     """
