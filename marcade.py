@@ -4,6 +4,7 @@ from serve2 import DingesServer
 from kiosk import kiosk_driver, kiosk_subprocess, is_open
 from util import play_sound, listen_for_coin
 
+
 gamesServer = DingesServer('games', 8200)
 gamesServer.start()
 
@@ -18,6 +19,7 @@ def launch_game(game):
 
 menuServer.start()
 kiosk.get(menuServer.url + 'coin.html')
+play_sound('audio/start.wav')
 
 def coin_inserted():
     print('Coin inserted')
@@ -26,7 +28,7 @@ def coin_inserted():
 
 # listen_for_coin(17, coin_inserted)
 
-time.sleep(5)
+time.sleep(10)
 coin_inserted()
 
 while is_open(kiosk):
