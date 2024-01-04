@@ -4,7 +4,10 @@ from flask_socketio import SocketIO
 import eventlet
 from eventlet import wsgi
 from waitress import serve
-eventlet.monkey_patch()
+
+# dit verneukt alles en ik weet niet waarom
+# eventlet.monkey_patch()
+
 import os
 
 class DingesServer():
