@@ -1,8 +1,16 @@
+import os
 import time
+
+# Change the working directory to the directory of the script
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 from serve2 import DingesServer
 from kiosk import kiosk_driver, kiosk_subprocess, is_open
-from util import play_sound, listen_for_coin
+from util import play_sound
+try:
+    import gpiozero
+except:
+    gpiozero = None
 
 
 gamesServer = DingesServer('games', 8200)
@@ -26,10 +34,12 @@ def coin_inserted():
     play_sound('audio/coin.mp3')
     kiosk.get(menuServer.url + 'select.html')
 
-# listen_for_coin(17, coin_inserted)
-
-time.sleep(10)
-coin_inserted()
+if gpiozero:
+    coinListener = gpiozero.Button(21)
+    coinListener.when_pressed = coin_inserted
+    print('Listening for coin')
+else:
+    print('Not listening for coin')
 
 while is_open(kiosk):
     time.sleep(1)
