@@ -24,11 +24,13 @@ class DingesServer():
         else:
             self.socketio = None
 
+        @self.app.route('/lib/<path:path>')
+        def serve_lib(path):
+            return send_from_directory('lib', path)
+
         @self.app.route('/', defaults={'path': ''})
         @self.app.route('/<path:path>') 
         def serve_static(path=''): 
-            if path == 'socket.js':
-                return send_from_directory('lib', 'socket.js')
             if os.path.isdir(os.path.join(self.directory, path)):
                 if not path.endswith('/') and path != '':
                     return redirect(path + '/')
@@ -38,7 +40,7 @@ class DingesServer():
             response.headers['Cross-Origin-Opener-Policy'] = 'same-origin'
             response.headers['Cross-Origin-Embedder-Policy'] = 'require-corp'
 
-            if path.endswith('.html'): inject_socketio(response)
+            # if path.endswith('.html'): inject_socketio(response)
 
             # nog wat headers voor de leuk
             # response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate'

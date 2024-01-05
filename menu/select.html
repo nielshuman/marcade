@@ -8,7 +8,7 @@
     <style>
         body {
             margin: 0;
-            background: linear-gradient(to right bottom , #000000, 60%, #ae0000);
+            background: linear-gradient(to right bottom, #000000, 60%, #ae0000);
             /* background: linear-gradient(to right bottom in hsl longer hue, #000000, #ae0000); */
             color: #fff;
             font-family: Arial, sans-serif;
@@ -20,7 +20,7 @@
             background-size: 200% 200%;
             cursor: none;
         }
-        
+
         @keyframes gradientAnimation {
             0% {
                 background-position: 0% 50%;
@@ -78,12 +78,11 @@
         }
 
         .title {
-            font-family: 'Press Start 2P', cursive; /* Use a retro arcade font (Google Fonts example) */
+            font-family: 'Press Start 2P', cursive;
             font-size: 50px;
             text-align: center;
             margin-bottom: 50px;
         }
-        
     </style>
     <link href="/fonts.css" rel="stylesheet">
 </head>
@@ -96,11 +95,24 @@
             <!-- <div class="image"></div> -->
         </div>
     </div>
-    <script src="games.js"></script>
+    <script src="/lib/socket.js" crossorigin="anonymous"></script>
+    <script src="/lib/js-yaml.min.js" crossorigin="anonymous"></script>
     <script>
+
         const optionsContainer = document.getElementById('options-container');
         let selectedIndex = 0;
         let socket = io();
+        let games = {}
+        
+        fetch('/games.yml').then(r => r.text()).then(t => {
+            games = jsyaml.load(t)
+            games.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.textContent = option.display_name; // Display the name
+                optionsContainer.appendChild(optionElement);
+            });
+        });
 
         function highlightOption(index) {
             const options = document.querySelectorAll('.option');
@@ -119,21 +131,12 @@
             } else if (event.key === 'ArrowDown' && selectedIndex < games.length - 1) {
                 selectedIndex++;
             } else if (event.key === 'Enter') {
-                socket.emit('launch_game', games[selectedIndex].path);
+                socket.emit('launch_game', games[selectedIndex].id);
             }
             highlightOption(selectedIndex);
         }
 
         document.addEventListener('keydown', handleKeyDown);
-
-        // Dynamically load options from the array
-        games.forEach((option, index) => {
-            const optionElement = document.createElement('div');
-            optionElement.classList.add('option');
-            optionElement.textContent = option.name; // Display the name
-            optionsContainer.appendChild(optionElement);
-        });
-
         // Highlight the initially selected option
         highlightOption(selectedIndex);
     </script>

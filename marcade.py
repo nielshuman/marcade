@@ -11,6 +11,10 @@ try:
 except:
     gpiozero = None
 
+import yaml
+with open('menu/games.yml') as f:
+    games = yaml.load(f, Loader=yaml.FullLoader)
+
 antimciroX = AntimicroX('empty')
 antimciroX.start()
 gamesServer = DingesServer('games', 8200)
@@ -21,9 +25,14 @@ kiosk = kiosk_driver()
 menuServer = DingesServer('menu', 8201, socketio=True)
 
 @menuServer.socketio.on('launch_game')
-def launch_game(game):
-    print('Launching game', game)
-    kiosk.get(gamesServer.url + game)
+def launch_game(game_id):
+    print('Launching game', game_id)
+    for g in games:
+        if g['id'] == game_id:
+            game = g
+            break
+    antimciroX.change_profile(game['profile'])
+    kiosk.get(gamesServer.url + game['path'])
 
 def coin_inserted():
     print('Coin inserted')

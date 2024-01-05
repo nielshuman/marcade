@@ -1,6 +1,5 @@
 import soundfile as sf
 import sounddevice as sd
-import subprocess
 
 def play_sound(filename, block=False):
     sd.play(*sf.read(filename, dtype='int16'))
