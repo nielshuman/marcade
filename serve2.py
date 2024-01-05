@@ -27,8 +27,8 @@ class DingesServer():
         @self.app.route('/', defaults={'path': ''})
         @self.app.route('/<path:path>') 
         def serve_static(path=''): 
-            # if path == 'socket.js':
-            #     return send_from_directory('lib', 'socket.js')
+            if path == 'socket.js':
+                return send_from_directory('lib', 'socket.js')
             if os.path.isdir(os.path.join(self.directory, path)):
                 if not path.endswith('/') and path != '':
                     return redirect(path + '/')
