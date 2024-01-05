@@ -1,9 +1,0 @@
-- name: "Gun Wizard"
-  path: "gunwizard"
-  config: babs.gamecontroller.agmp
-- name: "Gare constructie pagina"
-  path: "construction"
-- name: "Tarptarp"
-  path: "construction"
-- name: "Cartographer"
-  path: "construction"

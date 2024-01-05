@@ -1,0 +1,7 @@
+- display_name: Gun Wizard
+  id: gunwizard
+  path: gunwizard
+- display_name: Gare constructie pagina
+  id: construction
+  path: construction
+  profile: enter
