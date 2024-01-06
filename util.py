@@ -1,3 +1,13 @@
+import yaml
+with open('menu/games.yml') as f:
+    games = yaml.load(f, Loader=yaml.FullLoader)
+
+def get_game_by_id(game_id):
+    for game in games:
+        if game['id'] == game_id:
+            return game
+    return None
+
 import soundfile as sf
 import sounddevice as sd
 
@@ -24,13 +34,14 @@ class AntimicroX():
         self.default_profile = default_profile
         pass
 
-    def start(self):
+    def start(self, profile=None):
         """
         Starts the AntimicroX process in the system tray.
         """
         command = ['antimicrox', '--tray']
-
-        if self.default_profile is not None:
+        if profile is not None:
+            command += ['--profile', profile_filename(profile)]
+        elif self.default_profile is not None:
             command += ['--profile', profile_filename(self.default_profile)]
 
         self.process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -50,3 +61,11 @@ class AntimicroX():
             profile (str): The name of the profile to switch to.
         """
         subprocess.run(['antimicrox', '--profile', profile_filename(profile)], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print(f'Antimicrox changed to profile {profile}')
+
+    def change_to_default(self):
+        """
+        Changes the active profile in AntimicroX to the default profile.
+        """
+        if self.default_profile is not None:
+            self.change_profile(self.default_profile)
