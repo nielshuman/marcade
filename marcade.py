@@ -4,16 +4,12 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 import time
 from serve2 import DingesServer
-from kiosk import kiosk_driver, kiosk_subprocess, is_open
-from util import play_sound, AntimicroX
+from kiosk import kiosk_driver, is_open
+from util import play_sound, AntimicroX, get_game_by_id
 try:
     import gpiozero
 except:
     gpiozero = None
-
-import yaml
-with open('menu/games.yml') as f:
-    games = yaml.load(f, Loader=yaml.FullLoader)
 
 antimciroX = AntimicroX('empty')
 antimciroX.start()
@@ -27,18 +23,23 @@ menuServer = DingesServer('menu', 8201, socketio=True)
 @menuServer.socketio.on('launch_game')
 def launch_game(game_id):
     print('Launching game', game_id)
-    for g in games:
-        if g['id'] == game_id:
-            game = g
-            break
-    antimciroX.change_profile(game['profile'])
+    game = get_game_by_id(game_id)
     kiosk.get(gamesServer.url + game['path'])
+    try:
+        antimciroX.change_profile(game['profile'])
+    except KeyError:
+        antimciroX.change_to_default()
 
 def coin_inserted():
     print('Coin inserted')
     play_sound('audio/coin.mp3')
     kiosk.get(menuServer.url + 'select.html')
     antimciroX.change_profile('enter')
+
+def expire():
+    print('Time expired')
+    kiosk.get(menuServer.url + 'coin.html')
+    antimciroX.change_profile('empty')
 
 if gpiozero:
     coinListener = gpiozero.Button(21)
@@ -50,6 +51,7 @@ else:
 play_sound('audio/start.wav')
 menuServer.start()
 kiosk.get(menuServer.url + 'coin.html')
+coin_inserted()
 
 while is_open(kiosk):
     time.sleep(1)

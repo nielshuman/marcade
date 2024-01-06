@@ -3,5 +3,14 @@
   path: gunwizard
 - display_name: Gare constructie pagina
   id: construction
-  path: construction
+  path: construcaztion
   profile: enter
+- display_name: Fireboy and Watergirl
+  id: fireboy-watergirl
+  path: fireboy-watergirl
+- display_name: Cat Mario
+  id: catmario
+  path: catmario
+- display_name: Fly Guy
+  id: flyguy
+  path: flyguy
