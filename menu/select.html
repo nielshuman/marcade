@@ -102,17 +102,7 @@
         const optionsContainer = document.getElementById('options-container');
         let selectedIndex = 0;
         let socket = io();
-        let games = {}
-        
-        fetch('/games.yml').then(r => r.text()).then(t => {
-            games = jsyaml.load(t)
-            games.forEach((option, index) => {
-                const optionElement = document.createElement('div');
-                optionElement.classList.add('option');
-                optionElement.textContent = option.display_name; // Display the name
-                optionsContainer.appendChild(optionElement);
-            });
-        });
+        let games = {};
 
         function highlightOption(index) {
             const options = document.querySelectorAll('.option');
@@ -136,9 +126,19 @@
             highlightOption(selectedIndex);
         }
 
+        fetch('/games.yml').then(r => r.text()).then(t => {
+            games = jsyaml.load(t)
+            games.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.textContent = option.display_name; // Display the name
+                optionsContainer.appendChild(optionElement);
+            });
+            highlightOption(selectedIndex);
+        });
+        
         document.addEventListener('keydown', handleKeyDown);
         // Highlight the initially selected option
-        highlightOption(selectedIndex);
     </script>
 </body>
 
