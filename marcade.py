@@ -41,17 +41,18 @@ def expire():
     kiosk.get(menuServer.url + 'coin.html')
     antimciroX.change_profile('empty')
 
+
+play_sound('audio/start.wav')
+menuServer.start()
+kiosk.get(menuServer.url + 'coin.html')
+
 if gpiozero:
     coinListener = gpiozero.Button(21)
     coinListener.when_pressed = coin_inserted
     print('Listening for coin')
 else:
     print('Not listening for coin')
-
-play_sound('audio/start.wav')
-menuServer.start()
-kiosk.get(menuServer.url + 'coin.html')
-coin_inserted()
+    coin_inserted()
 
 while is_open(kiosk):
     time.sleep(1)
