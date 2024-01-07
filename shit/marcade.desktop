@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
-Name=Marcade
+Name=MARCADE
 Exec=python3 /home/niels/marcade/marcade.py

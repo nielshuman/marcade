@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=Update Marcade
+Exec=lxterminal -e "sh ~/marcade/install.sh"
