@@ -17,3 +17,6 @@
 - display_name: Alien Homonid
   id: alien
   path: alien
+- display_name: Maze Akimbo
+  id: maze
+  path: maze
