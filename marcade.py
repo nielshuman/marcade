@@ -2,19 +2,19 @@ import os
 # Change the working directory to the directory of the script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-import time
+# import time
 from serve2 import DingesServer
-from kiosk import kiosk_driver, is_open
-from util import play_sound, AntimicroX, get_game_by_id
+# from kiosk import kiosk_driver, is_open
+# from util import play_sound, AntimicroX, get_game_by_id
 try:
     import gpiozero
 except:
     gpiozero = None
 
-antimciroX = AntimicroX('empty')
-antimciroX.start()
+# antimciroX = AntimicroX('empty')
+# antimciroX.start()
 gamesServer = DingesServer('games', 8200)
-gamesServer.start()
+gamesServer.serve()
 
 kiosk = kiosk_driver()
 
