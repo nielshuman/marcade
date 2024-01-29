@@ -1,4 +1,6 @@
 import os
+import sys
+
 # Change the working directory to the directory of the script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -11,10 +13,18 @@ try:
 except:
     gpiozero = None
 
+gamesServer = DingesServer('games', 8200)
+
+if len(sys.argv) > 1:
+    if sys.argv[1] == '-s':
+        print('Serve only mode')
+        gamesServer.serve()
+        sys.exit(0)
+
+gamesServer.start()
+
 antimciroX = AntimicroX('empty')
 antimciroX.start()
-gamesServer = DingesServer('games', 8200)
-gamesServer.start()
 
 kiosk = kiosk_driver()
 
@@ -52,6 +62,7 @@ if gpiozero:
     print('Listening for coin')
 else:
     print('Not listening for coin')
+    time.sleep(5)
     coin_inserted()
 
 while is_open(kiosk):
