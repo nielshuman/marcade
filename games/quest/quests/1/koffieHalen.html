@@ -1,0 +1,85 @@
+<style>
+    /*center title horizontally and vertically*/
+    
+    .title {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    /*make title bold and bigger*/
+    
+    .title {
+        font-weight: bold;
+        font-size: 30px;
+    }
+    /*Make cool buttons*/
+    
+    .button {
+        border: none;
+        color: #DFD964;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 70px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    
+    .logo {
+        max-width: 90%;
+        width: 60%;
+    }
+    /*Set body background image to fit to screen*/
+    
+    body {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    
+    video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    
+    #menu {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        height: 50%;
+    }
+</style>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<center>
+    <video playsinline autoplay id="vid" src="/assets/quests/1/koffiehalen.mp4"></video>
+
+</center>
+<script type='text/javascript'>
+    function checktime() {
+        console.log(this.currentTime);
+        if (this.currentTime > 25) {
+            console.log("time for event1")
+            if (this.currentTime < 25.5) {
+                location = "/quest1/koffieapparaat";
+            }
+        }
+    }
+    document.getElementById('vid').addEventListener("timeupdate", checktime, false);
+
+    document.getElementById('vid').addEventListener('ended', myHandler, false);
+
+    function myHandler(e) {
+        window.location.href = "/quest1/voltooid";
+
+    }
+</script>

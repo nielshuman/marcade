@@ -1,0 +1,131 @@
+<style>
+    /*center title horizontally and vertically*/
+    
+    .title {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    /*make title bold and bigger*/
+    
+    .title {
+        font-weight: bold;
+        font-size: 30px;
+    }
+    /*Make cool buttons*/
+    
+    .button {
+        border: none;
+        color: #DFD964;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 70px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    
+    .logo {
+        max-width: 90%;
+        width: 60%;
+    }
+    /*Set body background image to fit to screen*/
+    
+    body {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    
+    video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    
+    #menu {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        height: 50%;
+    }
+</style>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<center>
+    <video playsinline autoplay id="vid" src="/assets/quests/1/rechterding/video2.mp4"></video>
+
+</center>
+
+<style>
+    div {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        height: 35px;
+        width: 35px;
+        display: none;
+    }
+</style>
+<div id="cords"></div>
+<div id="image"><img width="100" height="100" src="/assets/quests/1/key.png"></div>
+<script type="text/javascript">
+    document.getElementById('vid').addEventListener('ended', myHandler, false);
+
+    function myHandler(e) {
+        window.location.href = "/quest1/koffiehalen";
+
+    }
+
+
+    document.getElementById('vid').addEventListener("timeupdate", checktime, false);
+
+    function checktime() {
+        console.log(this.currentTime);
+        if (this.currentTime > 18) {
+            console.log("time for event1")
+            if (this.currentTime < 18.5) {
+                console.log("event1 confirmed");
+                window.triggered = true;
+                console.log(triggered);
+                document.getElementById('vid').pause();
+                console.log("pause");
+                document.getElementById("image").style.display = "block";
+
+            }
+        }
+    }
+    let circle = document.getElementById('image');
+
+    const onMouseMove = (e) => {
+        circle.style.left = e.pageX + 'px';
+        circle.style.top = e.pageY + 'px';
+    }
+
+    function click() {
+        if (window.triggered !== true) return;
+        if (document.getElementById("vid").currentTime > 18.4) return;
+        console.log("clicked");
+        var left = circle.style.left.replace("px", "")
+        var top = circle.style.top.replace("px", "")
+
+        if (left > 603 && left < 1278) {
+            if (top > 252 && top < 610) {
+                document.getElementById("vid").currentTime = 18.5;
+                document.getElementById("vid").play();
+                document.getElementById("image").style.display = "none";
+
+            }
+        }
+    }
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('click', click);
+</script>

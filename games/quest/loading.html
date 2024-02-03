@@ -1,0 +1,59 @@
+<style>
+    /*center title horizontally and vertically*/
+    
+    .title {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    /*make title bold and bigger*/
+    
+    .title {
+        font-weight: bold;
+        font-size: 30px;
+    }
+    /*Make cool buttons*/
+    
+    .logo {
+        max-width: 100%;
+        width: 100%;
+    }
+    /*Set body background image to fit to screen*/
+    
+    body {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    
+    video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    
+    #menu {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        height: 50%;
+    }
+</style>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<center>
+    <div id="menu">
+        <img src="assets/logo.png" class="title logo center">
+    </div>
+    <video autoplay playsinline id="introvideo" src="assets/loading/video.mp4"></video>
+
+
+</center>

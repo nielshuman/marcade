@@ -1,0 +1,122 @@
+<style>
+    /*center title horizontally and vertically*/
+    
+    .title {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    /*make title bold and bigger*/
+    
+    .title {
+        font-weight: bold;
+        font-size: 30px;
+    }
+    /*Make cool buttons*/
+    
+    .button {
+        border: none;
+        color: #DFD964;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 70px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    
+    .logo {
+        max-width: 90%;
+        width: 60%;
+    }
+    /*Set body background image to fit to screen*/
+    
+    body {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    
+    video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    
+    #menu {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        height: 50%;
+    }
+    #whattoask{
+        text-align: center;
+        width:100%;
+        margin-top: 15%;
+        margin-left: -25%;
+    }
+    h1{
+        font-size: 50px;
+        color: rgb(238, 225, 225);
+
+    }
+    a{
+        font-size: 20px;
+        color: white;
+    }
+    
+</style>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<center>
+    <video playsinline autoplay id="vid" src="/assets/quests/1/rechterding/video1.mp4"></video>
+
+</center>
+<div id="whattoask" style="display: none;">
+    <h1>Wat doe je?</h1>
+    <a href="rechterding/renweg">Ren weg</a>
+    <br>
+    <a href="#" onclick="mag()">Vraag: Mag ik de sleutel van die deur daar?</a>
+    <br>
+    <a href="/quest1/rechterding/nodig">Vraag: Ik heb de sleutel van die deur daar nodig</a>
+    <br>
+    <a href="/quest1/rechterding/geef">Vraag: GEEF ME DE SLEUTEL!</a>
+</div>
+<script type='text/javascript'>
+    document.getElementById('vid').addEventListener('ended', myHandler, false);
+    document.getElementById('vid').addEventListener("timeupdate", checktime,false);
+    function checktime(){
+        console.log(this.currentTime);
+        if(this.currentTime > 7.1){
+        console.log("time for event1")
+         if(this.currentTime < 7.5){
+             if(event1triggered) return;
+             console.log("event1 confirmed");
+             var event1triggered = true;
+            document.getElementById('vid').pause();
+            console.log("pause");
+            document.getElementById("whattoask").style.display = "block"; 
+
+        }}
+    }
+    function myHandler(e) {
+        window.location.href = "/quest1/loopnaardeur";
+
+    }
+    function mag(){
+        document.getElementById('vid').currentTime = 11;
+        
+        document.getElementById('vid').play();
+            console.log("resume");
+            document.getElementById("whattoask").style.display = "none"; 
+        }
+
+</script>

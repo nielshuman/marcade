@@ -1,0 +1,153 @@
+<style>
+    /*center title horizontally and vertically*/
+    
+    .title {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    /*make title bold and bigger*/
+    
+    .title {
+        font-weight: bold;
+        font-size: 30px;
+    }
+    /*Make cool buttons*/
+    
+    .button {
+        border: none;
+        color: #DFD964;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 70px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    
+    .logo {
+        max-width: 90%;
+        width: 60%;
+    }
+    /*Set body background image to fit to screen*/
+    
+    body {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    
+    video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    
+    #menu {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        height: 50%;
+    }
+    
+    #whattoask {
+        text-align: center;
+        width: 100%;
+        margin-top: 15%;
+        margin-left: 5%;
+    }
+    
+    h1 {
+        font-size: 30px;
+        color: rgb(238, 225, 225);
+    }
+    
+    a {
+        font-size: 20px;
+        color: white;
+    }
+</style>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<center>
+    <video playsinline id="vid" src="/assets/quests/1/rechterding/video1.mp4"></video>
+
+</center>
+<div id="whattoask">
+    <h1>Oke, dan moet je wel mijn getal raden, ik heb een getal onder de 10, je hebt 3 kansen.</h1>
+    <form id="numberform">
+        <input id="number" type="text" maxlength="1" style="width: 20px;" min="1" max="9" pattern="\d*">
+        <input type="submit" value="Is het deze?">
+    </form>
+    <h1 id="fout" style="color: red; display: none;">Dat is helaas fout.</h1>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type='text/javascript'>
+    document.getElementById('numberform').addEventListener("submit", raadnummer, false);
+
+    var nummer = Math.floor(Math.random() * 10) - 1;
+    var pogingen = 3;
+    if (nummer === 0) nummer = 1;
+    if (nummer === -1) nummer = 1;
+
+
+    document.getElementById('number').addEventListener("click", focus, false);
+
+    function focus() {
+        document.getElementById('number').focus();
+    }
+
+    console.log(nummer);
+    var goedenummer = false;
+
+    function raadnummer(e) {
+        e.preventDefault();
+        if (document.getElementById("number").value === "") return false;
+
+        if (document.getElementById("number").value !== nummer.toString()) {
+            pogingen--;
+            if (pogingen < 1) {
+                return swal("IK WEET HET NIET, WEGWEZEN HIER!").then((value) => {
+                    location = "/quest1/rechterding/renweg/nummerfout"
+                });
+            }
+            setTimeout(function() {
+                swal("Helaas", "dat is niet goed. Je hebt nog " + pogingen + " pogingen over.", "error");
+
+            }, 100);
+
+        } else {
+
+            return swal("Goed gedaan!", "Dat was het goede nummer!", "success").then((value) => {
+                document.getElementById('vid').play();
+                document.getElementById("whattoask").style.display = "none";
+            });
+        }
+    }
+    var goedenummer = false;
+
+    if (goedenummer !== true) {
+        console.log('pause')
+        document.getElementById('vid').currentTime = 11;
+        document.getElementById('vid').pause();
+        var goedenummer = true;
+
+    }
+
+
+
+    document.getElementById('vid').addEventListener('ended', myHandler, false);
+
+    function myHandler(e) {
+        window.location.href = "/quest1/loopnaardeur";
+
+    }
+</script>

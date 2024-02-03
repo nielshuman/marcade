@@ -1,0 +1,34 @@
+{
+    "name": "MarcsQuest",
+    "version": "1.0.6",
+    "description": "Overleef een dag als Marc de Krosse.",
+    "main": "app.js",
+    "scripts": {
+        "build": "electron-builder",
+        "start": "nodemon --watch . --exec electron ."
+    },
+    "build": {
+        "appId": "marcsquest",
+        "files": [
+            "**/*",
+            "package.json"
+        ],
+        "directories": {
+            "buildResources": "build"
+        }
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.18.1",
+        "find-free-port": "^2.0.0",
+        "nodemon": "^2.0.16",
+        "open": "^8.4.0",
+        "secure-db": "^3.0.0"
+    },
+    "devDependencies": {
+        "electron": "latest",
+        "electron-builder": "latest"
+    }
+}
