@@ -77,18 +77,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <center>
-    <video playsinline autoplay id="vid" src="/assets/quests/1/rechterding/video1.mp4"></video>
+    <video playsinline autoplay id="vid" src="../../assets/quests/1/rechterding/video1.mp4"></video>
 
 </center>
 <div id="whattoask" style="display: none;">
     <h1>Wat doe je?</h1>
-    <a href="rechterding/renweg">Ren weg</a>
+    <a href="renweg">Ren weg</a>
     <br>
     <a href="#" onclick="mag()">Vraag: Mag ik de sleutel van die deur daar?</a>
     <br>
-    <a href="/quest1/rechterding/nodig">Vraag: Ik heb de sleutel van die deur daar nodig</a>
+    <a href="rechterding_nodig.html">Vraag: Ik heb de sleutel van die deur daar nodig</a>
     <br>
-    <a href="/quest1/rechterding/geef">Vraag: GEEF ME DE SLEUTEL!</a>
+    <a href="moethebben.html">Vraag: GEEF ME DE SLEUTEL!</a>
 </div>
 <script type='text/javascript'>
     document.getElementById('vid').addEventListener('ended', myHandler, false);
@@ -108,7 +108,7 @@
         }}
     }
     function myHandler(e) {
-        window.location.href = "/quest1/loopnaardeur";
+        window.location.href = "vanRechterNaarDocenten.html";
 
     }
     function mag(){

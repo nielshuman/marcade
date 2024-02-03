@@ -78,7 +78,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <center>
-    <video playsinline id="vid" src="/assets/quests/1/rechterding/video1.mp4"></video>
+    <video playsinline id="vid" src="../../assets/quests/1/rechterding/video1.mp4"></video>
 
 </center>
 <div id="whattoask">
@@ -116,7 +116,7 @@
             pogingen--;
             if (pogingen < 1) {
                 return swal("IK WEET HET NIET, WEGWEZEN HIER!").then((value) => {
-                    location = "/quest1/rechterding/renweg/nummerfout"
+                    location = "renweg_nummerfout.html"
                 });
             }
             setTimeout(function() {
@@ -147,7 +147,7 @@
     document.getElementById('vid').addEventListener('ended', myHandler, false);
 
     function myHandler(e) {
-        window.location.href = "/quest1/loopnaardeur";
+        window.location.href = "vanRechterNaarDocenten.html";
 
     }
 </script>
