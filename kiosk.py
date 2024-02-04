@@ -20,14 +20,15 @@ def kiosk_subprocess(*tabs: str):
     ) 
     return subprocess.Popen(COMMAND + tabs, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-def kiosk_driver(url: str = None):
+def kiosk_driver(url: str = None, windowed: bool = False):
     """
     Open Chromium in kiosk mode using Selenium WebDriver.
     Optionally, open a URL.
     """
 
     chrome_options = Options()
-    chrome_options.add_argument('--kiosk')
+    if not windowed:
+        chrome_options.add_argument('--kiosk')
     chrome_options.add_argument('--noerrdialogs')
     chrome_options.add_argument('--disable-infobars')
     chrome_options.add_argument('--no-first-run')
