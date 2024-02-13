@@ -15,7 +15,6 @@ from serve2 import DingesServer
 from kiosk import kiosk_driver, is_open
 from util import get_game_by_id
 from antimicroX import AntimicroX
-from sound import play_sound
 
 try:
     import gpiozero

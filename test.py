@@ -1,13 +1,8 @@
-from gpiozero import Button
-button = Button(21)
-from util import *
+from sound import play_music, play_sound
+import time
 
-def pressed():
-    print("Muntje!")
-
-button.when_pressed = pressed
-
-while True:
-    pass
+# play_music('audio/music/menu.mp3')
+time.sleep(2)
+play_sound('audio/sound/start.wav')
 
 # Exec=lxterminal -t Marcade --working-directory=/home/niels/marcade -e 'python3 marcade.py'
