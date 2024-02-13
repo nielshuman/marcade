@@ -13,8 +13,9 @@ with open('.marcade.pid', 'w') as f:
 import time
 from serve2 import DingesServer
 from kiosk import kiosk_driver, is_open
-from util import play_sound, get_game_by_id
+from util import get_game_by_id
 from antimicroX import AntimicroX
+from sound import play_sound
 
 try:
     import gpiozero
@@ -55,7 +56,7 @@ def launch_game(game_id):
 
 def coin_inserted():
     print('Coin inserted')
-    play_sound('audio/coin.mp3')
+    # play_sound('audio/coin.mp3')
     kiosk.get(menuServer.url + 'select.html')
     antimciroX.change_profile('enter')
 
