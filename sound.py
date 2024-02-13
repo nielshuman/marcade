@@ -21,4 +21,6 @@ def play_music(filename):
     pygame.mixer.Channel(0).play(pygame.mixer.Sound(filename), -1)
 
 def stop_music():
-    pygame.mixer.Channel(0).stop()
+    pygame.mixer.stop() # TODO: only stop music
+    pygame.mixer.pause()
+    print('Stopping music')

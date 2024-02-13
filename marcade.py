@@ -15,7 +15,7 @@ from serve2 import DingesServer
 from kiosk import kiosk_driver, is_open
 from util import get_game_by_id
 from antimicroX import AntimicroX
-
+from sound import play_sound, play_music, stop_music
 try:
     import gpiozero
 except ImportError:
@@ -48,6 +48,7 @@ def launch_game(game_id):
     print('Launching game', game_id)
     game = get_game_by_id(game_id)
     kiosk.get(gamesServer.url + game['path'])
+    stop_music()
     try:
         antimciroX.change_profile(game['profile'])
     except KeyError:
@@ -55,8 +56,9 @@ def launch_game(game_id):
 
 def coin_inserted():
     print('Coin inserted')
-    # play_sound('audio/coin.mp3')
+    play_sound('audio/sound/coin.wav')
     kiosk.get(menuServer.url + 'select.html')
+    play_music('audio/music/menu.wav')
     antimciroX.change_profile('enter')
 
 def expire():
@@ -68,8 +70,9 @@ def return_to_menu(*args):
     print('Returning to menu')
     kiosk.get(menuServer.url + 'select.html')
     antimciroX.change_profile('empty')
+    play_music('audio/music/menu.wav')
 
-play_sound('audio/start.wav')
+play_sound('audio/sound/start.wav')
 menuServer.start()
 kiosk.get(menuServer.url + 'insert_coin.html')
 signal.signal(signal.SIGUSR1, return_to_menu)
