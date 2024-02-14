@@ -14,11 +14,15 @@
         <link href="/lib/js-dos/v7.5.0/js-dos.css" rel="stylesheet">
     </head>
     <body>
-        <div id="jsdos" />
+        <div id="jsdos"/>
         <script>
          emulators.pathPrefix = "/lib/js-dos/v7.5.0/";
-         Dos(document.getElementById("jsdos"))
-             .run("https://cdn.dos.zone/original/2X/2/24b00b14f118580763440ecaddcc948f8cb94f14.jsdos");
+         Dos(document.getElementById("jsdos"), {
+            style: 'none',
+            noSideBar: true,
+            noSocialLinks: true,
+         })
+             .run("game.jsdos");
         </script>
     </body>
 </html>

@@ -15,3 +15,7 @@
   id: marcsquest
 - display_name: de Krosse Reloaded XI
   id: reloaded
+- display_name: Digger
+  id: digger
+- display_name: Dynablaster
+  id: dynablaster

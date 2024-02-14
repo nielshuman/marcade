@@ -26,7 +26,10 @@ class DingesServer():
 
         @self.app.route('/lib/<path:path>')
         def serve_lib(path):
-            return send_from_directory('lib', path)
+            response = send_from_directory('lib', path)
+            response.headers['Cross-Origin-Opener-Policy'] = 'same-origin'
+            response.headers['Cross-Origin-Embedder-Policy'] = 'require-corp'
+            return response
 
         @self.app.route('/', defaults={'path': ''})
         @self.app.route('/<path:path>') 
@@ -40,6 +43,11 @@ class DingesServer():
             response.headers['Cross-Origin-Opener-Policy'] = 'same-origin'
             response.headers['Cross-Origin-Embedder-Policy'] = 'require-corp'
 
+            # test
+            # response.headers['Access-Control-Allow-Origin'] = '*'
+            # response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+            # response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+            
             # if path.endswith('.html'): inject_socketio(response)
 
             # nog wat headers voor de leuk
