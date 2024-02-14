@@ -2,7 +2,7 @@ import os
 import sys
 import signal
 import argparse
-
+import threading
 # Change the working directory to the directory of the script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -15,12 +15,17 @@ from serve2 import DingesServer
 from kiosk import kiosk_driver, is_open
 from util import get_game_by_id
 from antimicroX import AntimicroX
-from sound import play_sound, play_music, stop_music
+# from sound import play_sound, play_music, stop_music
 try:
     import gpiozero
 except ImportError:
     gpiozero = None
 
+from audio import Sound, Music
+
+def send_stop_music_signal():
+    with open('.marcade.pid', 'r') as f:
+        os.kill(int(f.read()), signal.SIGUSR2)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--serve', action='store_true', help='Serve only mode')
@@ -48,34 +53,34 @@ def launch_game(game_id):
     print('Launching game', game_id)
     game = get_game_by_id(game_id)
     kiosk.get(gamesServer.url + game['path'])
-    stop_music()
+    send_stop_music_signal()
     try:
         antimciroX.change_profile(game['profile'])
     except KeyError:
         antimciroX.change_to_default()
 
+
 def coin_inserted():
     print('Coin inserted')
-    play_sound('audio/sound/coin.wav')
-    kiosk.get(menuServer.url + 'select.html')
-    play_music('audio/music/menu.wav')
-    antimciroX.change_profile('enter')
+    Sound.coin.play()
+    go_to_menu()
 
 def expire():
     print('Time expired')
     kiosk.get(menuServer.url + 'insert_coin.html')
     antimciroX.change_profile('empty')
 
-def return_to_menu(*args):
+def go_to_menu(*args):
     print('Returning to menu')
     kiosk.get(menuServer.url + 'select.html')
     antimciroX.change_profile('empty')
-    play_music('audio/music/menu.wav')
+    Music.play(Music.menu)
 
-play_sound('audio/sound/start.wav')
+Sound.start.play()
 menuServer.start()
 kiosk.get(menuServer.url + 'insert_coin.html')
-signal.signal(signal.SIGUSR1, return_to_menu)
+signal.signal(signal.SIGUSR1, go_to_menu)
+signal.signal(signal.SIGUSR2, Music.stop)
 
 if gpiozero:
     coinListener = gpiozero.Button(21)
@@ -94,3 +99,4 @@ gamesServer.stop()
 menuServer.stop()
 antimciroX.stop()
 os.remove('.marcade.pid')
+openal.oalQuit()
