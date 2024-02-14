@@ -1,22 +1,17 @@
 - display_name: Gun Wizard
   id: gunwizard
-  path: gunwizard
 - display_name: Gare constructie pagina
   id: construction
-  path: construcaztion
   profile: enter
 - display_name: Fireboy and Watergirl
   id: fireboy-watergirl
-  path: fireboy-watergirl
 - display_name: Fly Guy
   id: flyguy
-  path: flyguy
 - display_name: Alien Homonid
   id: alien
-  path: alien
 - display_name: Maze Akimbo
   id: maze
-  path: maze
 - display_name: Marc's Quest
   id: marcsquest
-  path: marcsquest
+- display_name: de Krosse Reloaded XI
+  id: reloaded

@@ -53,7 +53,10 @@ menuServer = DingesServer('menu', 8201, socketio=True)
 def launch_game(game_id):
     print('Launching game', game_id)
     game = get_game_by_id(game_id)
-    kiosk.get(gamesServer.url + game['path'])
+    try:
+        kiosk.get(gamesServer.url + game['path'])
+    except KeyError:
+        kiosk.get(gamesServer.url + game['id'])
     try:
         antimciroX.change_profile(game['profile'])
     except KeyError:
