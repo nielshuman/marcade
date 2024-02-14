@@ -16,8 +16,11 @@ class Music:
     current = None
     def stop(*args):
         if Music.current:
+            print('Stopping music')
             Music.current.stop()
             Music.current = None
+        else:
+            print('No music to stop')
     def play(song):
         Music.stop()
         song.set_looping(True)

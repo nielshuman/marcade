@@ -2,7 +2,7 @@ import os
 import sys
 import signal
 import argparse
-import threading
+
 # Change the working directory to the directory of the script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,6 +24,7 @@ except ImportError:
 from audio import Sound, Music, close
 
 def send_stop_music_signal():
+    print('Sending stop music signal')
     with open('.marcade.pid', 'r') as f:
         os.kill(int(f.read()), signal.SIGUSR2)
 
@@ -53,11 +54,11 @@ def launch_game(game_id):
     print('Launching game', game_id)
     game = get_game_by_id(game_id)
     kiosk.get(gamesServer.url + game['path'])
-    send_stop_music_signal()
     try:
         antimciroX.change_profile(game['profile'])
     except KeyError:
         antimciroX.change_to_default()
+    send_stop_music_signal()
 
 
 def coin_inserted():
@@ -73,8 +74,8 @@ def expire():
 def go_to_menu(*args):
     print('Returning to menu')
     kiosk.get(menuServer.url + 'select.html')
-    antimciroX.change_profile('empty')
     Music.play(Music.menu)
+    antimciroX.change_profile('empty')
 
 Sound.start.play()
 menuServer.start()
