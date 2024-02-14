@@ -51,6 +51,7 @@ menuServer = DingesServer('menu', 8201, socketio=True)
 
 @menuServer.socketio.on('launch_game')
 def launch_game(game_id):
+    send_stop_music_signal()
     print('Launching game', game_id)
     game = get_game_by_id(game_id)
     try:
@@ -61,7 +62,6 @@ def launch_game(game_id):
         antimciroX.change_profile(game['profile'])
     except KeyError:
         antimciroX.change_to_default()
-    send_stop_music_signal()
 
 
 def coin_inserted():
@@ -75,9 +75,8 @@ def expire():
     antimciroX.change_profile('empty')
 
 def go_to_menu(*args):
-    print('Returning to menu')
     kiosk.get(menuServer.url + 'select.html')
-    Music.play(Music.menu)
+    Music.play(Music.menu, fade_in=False)
     antimciroX.change_profile('empty')
 
 Sound.start.play()
