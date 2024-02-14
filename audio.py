@@ -23,3 +23,5 @@ class Music:
         song.set_looping(True)
         song.play()
         Music.current = song
+
+close = openal.oalQuit

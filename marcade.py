@@ -21,7 +21,7 @@ try:
 except ImportError:
     gpiozero = None
 
-from audio import Sound, Music
+from audio import Sound, Music, close
 
 def send_stop_music_signal():
     with open('.marcade.pid', 'r') as f:
@@ -99,4 +99,4 @@ gamesServer.stop()
 menuServer.stop()
 antimciroX.stop()
 os.remove('.marcade.pid')
-openal.oalQuit()
+close()
