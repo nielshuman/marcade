@@ -31,6 +31,7 @@ def send_stop_music_signal():
 parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--serve', action='store_true', help='Serve only mode')
 parser.add_argument('-w', '--windowed', action='store_true', help='Windowed mode')
+parser.add_argument('-c', '--no-coin', action='store_true', help='Do not listen for coin, insert coin on start')
 args = parser.parse_args()
 
 gamesServer = DingesServer('games', 8200)
@@ -85,7 +86,7 @@ kiosk.get(menuServer.url + 'insert_coin.html')
 signal.signal(signal.SIGUSR1, go_to_menu)
 signal.signal(signal.SIGUSR2, Music.stop)
 
-if gpiozero:
+if gpiozero and not args.no_coin:
     coinListener = gpiozero.Button(21)
     coinListener.when_pressed = coin_inserted
     print('Listening for coin')
