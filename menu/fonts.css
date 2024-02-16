@@ -67,11 +67,11 @@
 
 
 
-.mario{
+.animate-mario{
   position: absolute;
   width: 71px;
   height: 72px;
-  background: url('https://raw.githubusercontent.com/LantareCode/random-this-and-thats/master/CSS/SuperMario-Animation/images/mariowalking/result.png') left center;    
+  background: url('mario.png') left center;    
   bottom:   0px;
   left:0px;
   -webkit-animation: play 0.5s steps(4) infinite,

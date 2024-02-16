@@ -19,6 +19,7 @@
             animation: gradientAnimation 3.5s infinite alternate-reverse ease;
             background-size: 200% 200%;
             cursor: none;
+            overflow: hidden;
         }
 
         @keyframes gradientAnimation {
@@ -100,7 +101,7 @@
             </div>
         </div>
     </div>
-    <div class="mario"></div>
+    <div id="mario"></div>
     <script src="/lib/socket.js" crossorigin="anonymous"></script>
     <script src="/lib/js-yaml.min.js" crossorigin="anonymous"></script>
     <script>
@@ -145,6 +146,17 @@
         
         document.addEventListener('keydown', handleKeyDown);
         // Highlight the initially selected option
+
+        const mario = document.getElementById('mario');
+        function animateMario() {
+            mario.classList.add('animate-mario');
+            setTimeout(() => {
+                mario.classList.remove('animate-mario');
+            }, 5000);
+        }
+        setTimeout(animateMario, 5000);
+        setInterval(animateMario, 15000);
+
     </script>
 </body>
 
