@@ -44,6 +44,7 @@ class Music:
                 song.set_gain(i / FADE_STEPS)
                 time.sleep(FADE_TIME / FADE_STEPS)
         else:
+            song.set_gain(1)
             song.play()
         Music.current = song
 
