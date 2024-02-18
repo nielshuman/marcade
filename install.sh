@@ -18,6 +18,8 @@ sudo dpkg -i -EG shit/input-remapper-2.0.1.deb
 sudo apt install -f -y
 chmod +x home.sh
 
+ln -s ./inputremapper-config/ ~/.config/input-remapper-2
+
 # only do this is files are not identical
 if ! cmp -s shit/wait.png /usr/share/plymouth/themes/pix/splash.png; then
     echo "Applying splash screen"
