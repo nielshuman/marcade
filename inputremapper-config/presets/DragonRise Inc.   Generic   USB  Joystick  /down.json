@@ -1,0 +1,14 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 288,
+                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
+            }
+        ],
+        "target_uinput": "mouse",
+        "output_symbol": "mouse(down, 10)",
+        "mapping_type": "key_macro"
+    }
+]
