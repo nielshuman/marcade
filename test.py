@@ -1,4 +1,4 @@
-from sound import play_music, play_sound
+from gestorven.sound import play_music, play_sound
 import time
 
 # play_music('audio/music/menu.mp3')
