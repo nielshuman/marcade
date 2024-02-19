@@ -47,8 +47,8 @@ menuServer = DingesServer('menu', 8201, socketio=True)
 
 @menuServer.socketio.on('launch_game')
 def launch_game(game_id):
-    send_stop_music_signal()
     print('Launching game', game_id)
+    send_stop_music_signal()
     game = get_game_by_id(game_id)
     kiosk.get(gamesServer.url + game.get('path', game['id']))
     controllers.P1.start(game.get('p1', 'default_1'))
@@ -65,6 +65,7 @@ def expire():
     # antimciroX.change_profile('empty')
 
 def go_to_menu(*args):
+    print('Going to menu')
     kiosk.get(menuServer.url + 'select.html')
     Music.play(Music.menu, fade_in=False)
     controllers.P1.start('menu')
