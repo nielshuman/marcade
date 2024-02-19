@@ -2,7 +2,8 @@
   id: gunwizard
 - display_name: Gare constructie pagina
   id: construction
-  profile: enter
+  p1: up
+  p2: down
 - display_name: Fireboy and Watergirl
   id: fireboy-watergirl
 - display_name: Fly Guy
@@ -13,6 +14,8 @@
   id: maze
 - display_name: Marc's Quest
   id: marcsquest
+  p1: left
+  p2: right
 - display_name: de Krosse Reloaded XI
   id: reloaded
 - display_name: Digger

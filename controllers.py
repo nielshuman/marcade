@@ -15,19 +15,21 @@ def input_remapper_control(deamon_command, device=None, preset=None):
         return True
     else:
         raise ValueError(f'input-remapper-control returned non-zero exit code: {result.returncode}\n{result.stderr}')
-    
-def stop_all():
-    input_remapper_control('stop-all')
 
 class Controller:
-    def __init__(self, name) -> None:
-        self.name = name
+    def __init__(self, name, display_name=None) -> None:
+        self.device_name = name
+        self.display_name = display_name or name
     
     def start(self, preset):
-        input_remapper_control('start', device=self.name, preset=preset)
+        print(f'Starting controller {self.display_name} with preset {preset}')
+        input_remapper_control('start', device=self.device_name, preset=preset)
     
     def stop(self):
-        input_remapper_control('stop', device=self.name)
+        input_remapper_control('stop', device=self.device_name)
 
-P1 = Controller('DragonRise Inc.   Generic   USB  Joystick  ')
-P2 = Controller('DragonRise Inc.   Generic   USB  Joystick  2')
+P1 = Controller('DragonRise Inc.   Generic   USB  Joystick  ', 'P1')
+P2 = Controller('DragonRise Inc.   Generic   USB  Joystick   2', 'P2')
+
+def stop_all():
+    input_remapper_control('stop-all')

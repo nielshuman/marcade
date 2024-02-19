@@ -1,32 +1,10 @@
 import os
 import sys
-import signal
 import argparse
+from serve2 import DingesServer
 
 # Change the working directory to the directory of the script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
-# save current PID to temp file
-with open('.marcade.pid', 'w') as f:
-    f.write(str(os.getpid()))
-
-import time
-from serve2 import DingesServer
-from kiosk import kiosk_driver, is_open
-from util import get_game_by_id
-# from sound import play_sound, play_music, stop_music
-try:
-    import gpiozero
-except ImportError:
-    gpiozero = None
-
-from audio import Sound, Music, close
-
-def send_stop_music_signal():
-    print('Sending stop music signal')
-    with open('.marcade.pid', 'r') as f:
-        os.kill(int(f.read()), signal.SIGUSR2)
-
 parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--serve', action='store_true', help='Serve only mode')
 parser.add_argument('-w', '--windowed', action='store_true', help='Windowed mode')
@@ -40,6 +18,27 @@ if args.serve:
     gamesServer.serve()
     sys.exit(0)
 
+
+import signal
+import time
+try:
+    import gpiozero
+except ImportError:
+    gpiozero = None
+from kiosk import kiosk_driver, is_open
+from util import get_game_by_id
+from audio import Sound, Music, close
+import controllers
+# from sound import play_sound, play_music, stop_music
+
+# save current PID to temp file
+with open('.marcade.pid', 'w') as f:
+    f.write(str(os.getpid()))
+
+def send_stop_music_signal():
+    with open('.marcade.pid', 'r') as f:
+        os.kill(int(f.read()), signal.SIGUSR2)
+
 gamesServer.start()
 
 kiosk = kiosk_driver(windowed=args.windowed)
@@ -51,17 +50,9 @@ def launch_game(game_id):
     send_stop_music_signal()
     print('Launching game', game_id)
     game = get_game_by_id(game_id)
-    try:
-        kiosk.get(gamesServer.url + game['path'])
-    except KeyError:
-        kiosk.get(gamesServer.url + game['id'])
-    try:
-        # antimciroX.change_profile(game['profile'])
-        ...
-    except KeyError:
-        # antimciroX.change_to_default()
-        ...
-
+    kiosk.get(gamesServer.url + game.get('path', game['id']))
+    controllers.P1.start(game.get('p1', 'default_1'))
+    controllers.P2.start(game.get('p2', 'default_2'))
 
 def coin_inserted():
     print('Coin inserted')
@@ -76,7 +67,8 @@ def expire():
 def go_to_menu(*args):
     kiosk.get(menuServer.url + 'select.html')
     Music.play(Music.menu, fade_in=False)
-    # antimciroX.change_profile('empty')
+    controllers.P1.start('menu')
+    controllers.P2.stop()
 
 Sound.start.play()
 menuServer.start()
@@ -99,6 +91,6 @@ while is_open(kiosk):
 print('Browser is closed, stopping servers and AntimicroX')
 gamesServer.stop()
 menuServer.stop()
-# antimciroX.stop()
-os.remove('.marcade.pid')
+controllers.stop_all()
 close()
+os.remove('.marcade.pid')
