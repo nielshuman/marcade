@@ -87,6 +87,7 @@
         }
     </style>
     <link href="/fonts.css" rel="stylesheet">
+    <link href="animations/animations.css" rel="stylesheet">
 </head>
 
 <body>
@@ -102,6 +103,13 @@
         </div>
     </div>
     <div id="mario"></div>
+    
+    <script src="animations/animations.js" anonymous"></script>
+    <script>
+        setTimeout(animateMario, 5000);
+        setInterval(animateMario, MARIO_DURATION + 5000);
+    </script>
+
     <script src="/lib/socket.js" crossorigin="anonymous"></script>
     <script src="/lib/js-yaml.min.js" crossorigin="anonymous"></script>
     <script>
@@ -146,16 +154,6 @@
         
         document.addEventListener('keydown', handleKeyDown);
         // Highlight the initially selected option
-
-        const mario = document.getElementById('mario');
-        function animateMario() {
-            mario.classList.add('animate-mario');
-            setTimeout(() => {
-                mario.classList.remove('animate-mario');
-            }, 5000);
-        }
-        setTimeout(animateMario, 5000);
-        setInterval(animateMario, 15000);
 
     </script>
 </body>
