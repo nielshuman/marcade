@@ -10,10 +10,11 @@ git lfs pull
 sudo dpkg -i -EG shit/input-remapper-2.0.1.deb
 sudo apt install -f -y
 mkdir -p ~/.config/autostart
-cp -f shit/marcade.desktop ~/.config/autostart/
+cp -f shit/video.desktop ~/.config/autostart/
 cp -f shit/marcade.desktop ~/.local/share/applications/
 cp -f shit/update.desktop ~/.local/share/applications/
 cp -f shit/home.desktop ~/.local/share/applications/
+cp -f shit/video.desktop ~/.local/share/applications/
 # only if ~/.config/input-remapper-2 does not already exist
 
 if [ ! -L ~/.config/input-remapper-2 ]; then
