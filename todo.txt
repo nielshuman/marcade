@@ -1,1 +1,3 @@
 
+mpv --no-input-default-bindings --cursor-autohide=no --osc=no --fullscreen --on-all-workspaces your_video.mp4
+cvlc -f fuck_yeah.mp4 
