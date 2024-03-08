@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=Marcade startup video
+Exec=mpv --no-input-default-bindings --cursor-autohide=no --osc=no --fullscreen --on-all-workspaces startup.mp4
