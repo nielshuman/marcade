@@ -2,6 +2,7 @@ import os
 import sys
 import argparse
 from serve2 import DingesServer
+import time
 
 # Change the working directory to the directory of the script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -9,6 +10,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--serve', action='store_true', help='Serve only mode')
 parser.add_argument('-w', '--windowed', action='store_true', help='Windowed mode')
 parser.add_argument('-c', '--no-coin', action='store_true', help='Do not listen for coin, insert coin on start')
+parser.add_argument('-d', '--delay', action='store_true', help='start with a delay ')
+
 args = parser.parse_args()
 
 gamesServer = DingesServer('games', 8200)
@@ -40,6 +43,9 @@ def send_stop_music_signal():
         os.kill(int(f.read()), signal.SIGUSR2)
 
 gamesServer.start()
+
+if args.delay:
+    time.sleep(13)
 
 kiosk = kiosk_driver(windowed=args.windowed)
 
