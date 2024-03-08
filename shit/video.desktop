@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=Marcade startup video
-Exec=mpv --no-input-default-bindings --cursor-autohide=always --osc=no --fullscreen --on-all-workspaces ~/marcade/shit/startup.mp4
+Exec=bash -c 'mpv --no-input-default-bindings --cursor-autohide=always --osc=no --fullscreen --on-all-workspaces ~/marcade/shit/startup.mp4'
