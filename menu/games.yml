@@ -12,6 +12,8 @@
   id: alien
 - display_name: Maze Akimbo
   id: maze
+  p1: maze1
+  p2: maze1
 - display_name: Marc's Quest
   id: marcsquest
   p1: left
