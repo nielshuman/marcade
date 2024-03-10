@@ -45,7 +45,7 @@ def send_stop_music_signal():
 gamesServer.start()
 
 if args.delay:
-    time.sleep(13)
+    time.sleep(15)
 
 kiosk = kiosk_driver(windowed=args.windowed)
 
