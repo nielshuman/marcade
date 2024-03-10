@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=MARCADE (Windowed)
+Exec=python3 /home/niels/marcade/marcade.py -w

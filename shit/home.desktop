@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
-Name=Return to menu
+Name=Return to MARCADE menu
 Exec=lxterminal -e "~/marcade/home.sh"

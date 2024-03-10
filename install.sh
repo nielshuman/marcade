@@ -1,6 +1,6 @@
 sudo apt update
 pip install flask_socketio PyOpenAL --break-system-packages
-sudo apt install git git-lfs python3-flask python3-eventlet python3-selenium python3-yaml python3-waitress chromium-browser chromium-chromedriver libportaudio2 -y
+sudo apt install git git-lfs python3-flask python3-eventlet python3-selenium python3-yaml python3-waitress chromium-browser chromium-chromedriver libportaudio2 mpv -y
 
 cd ~/marcade
 git pull
@@ -11,8 +11,11 @@ sudo dpkg -i -EG shit/input-remapper-2.0.1.deb
 sudo apt install -f -y
 mkdir -p ~/.config/autostart
 cp -f shit/video.desktop ~/.config/autostart/
-cp -f shit/marcade.desktop ~/.config/autostart/
+cp -f shit/marcade-delayed.desktop ~/.config/autostart/
+
 cp -f shit/marcade.desktop ~/.local/share/applications/
+cp -f shit/marcade-delayed.desktop ~/.local/share/applications/
+cp -f shit/marcade-windowed.desktop ~/.local/share/applications/
 cp -f shit/update.desktop ~/.local/share/applications/
 cp -f shit/home.desktop ~/.local/share/applications/
 cp -f shit/video.desktop ~/.local/share/applications/

@@ -3,62 +3,39 @@
         "input_combination": [
             {
                 "type": 3,
-                "code": 0,
+                "code": 1,
                 "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21",
                 "analog_threshold": -1
             }
         ],
         "target_uinput": "keyboard",
-        "output_symbol": "a",
+        "output_symbol": "Up",
         "mapping_type": "key_macro"
     },
     {
         "input_combination": [
             {
                 "type": 3,
-                "code": 0,
+                "code": 1,
                 "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21",
                 "analog_threshold": 1
             }
         ],
         "target_uinput": "keyboard",
-        "output_symbol": "d",
+        "output_symbol": "Down",
         "mapping_type": "key_macro"
     },
     {
         "input_combination": [
             {
                 "type": 1,
-                "code": 290,
+                "code": 292,
                 "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
             }
         ],
         "target_uinput": "keyboard",
-        "output_symbol": "f",
-        "mapping_type": "key_macro"
-    },
-    {
-        "input_combination": [
-            {
-                "type": 1,
-                "code": 291,
-                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
-            }
-        ],
-        "target_uinput": "keyboard",
-        "output_symbol": "space",
-        "mapping_type": "key_macro"
-    },
-    {
-        "input_combination": [
-            {
-                "type": 1,
-                "code": 293,
-                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
-            }
-        ],
-        "target_uinput": "keyboard",
-        "output_symbol": "exec(\"/home/niels/marcade/home.sh\")",
+        "output_symbol": "Return",
+        "name": "Start BUTTON",
         "mapping_type": "key_macro"
     }
 ]
