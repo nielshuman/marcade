@@ -66,24 +66,36 @@
         "input_combination": [
             {
                 "type": 1,
-                "code": 289,
+                "code": 288,
                 "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
             }
         ],
         "target_uinput": "mouse",
-        "output_symbol": "mouse(down, 3)",
+        "output_symbol": "mouse(left, 3)",
         "mapping_type": "key_macro"
     },
     {
         "input_combination": [
             {
                 "type": 1,
-                "code": 291,
+                "code": 289,
                 "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
             }
         ],
         "target_uinput": "mouse",
-        "output_symbol": "mouse(up, 3)",
+        "output_symbol": "mouse(right, 3)",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 292,
+                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
+            }
+        ],
+        "target_uinput": "mouse",
+        "output_symbol": "BTN_LEFT",
         "mapping_type": "key_macro"
     }
 ]
