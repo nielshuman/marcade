@@ -45,7 +45,7 @@ def send_stop_music_signal():
 gamesServer.start()
 
 if args.delay:
-    time.sleep(15)
+    time.sleep(17)
 
 kiosk = kiosk_driver(windowed=args.windowed)
 
@@ -77,7 +77,7 @@ def go_to_menu(*args):
     controllers.P1.start('menu')
     controllers.P2.stop()
 
-Sound.start.play()
+# Sound.start.play()
 menuServer.start()
 kiosk.get(menuServer.url + 'insert_coin.html')
 signal.signal(signal.SIGUSR1, go_to_menu)
