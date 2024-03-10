@@ -2,13 +2,27 @@
     {
         "input_combination": [
             {
-                "type": 1,
-                "code": 290,
-                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
+                "type": 3,
+                "code": 1,
+                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21",
+                "analog_threshold": -1
             }
         ],
         "target_uinput": "keyboard",
-        "output_symbol": "Up",
+        "output_symbol": "w",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 3,
+                "code": 0,
+                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21",
+                "analog_threshold": 1
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "d",
         "mapping_type": "key_macro"
     },
     {
@@ -21,20 +35,7 @@
             }
         ],
         "target_uinput": "keyboard",
-        "output_symbol": "Left",
-        "mapping_type": "key_macro"
-    },
-    {
-        "input_combination": [
-            {
-                "type": 3,
-                "code": 0,
-                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21",
-                "analog_threshold": 1
-            }
-        ],
-        "target_uinput": "keyboard",
-        "output_symbol": "Right",
+        "output_symbol": "a",
         "mapping_type": "key_macro"
     },
     {
@@ -47,7 +48,43 @@
             }
         ],
         "target_uinput": "keyboard",
-        "output_symbol": "Down",
+        "output_symbol": "s",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 290,
+                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "j",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 288,
+                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "k",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 291,
+                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "p",
         "mapping_type": "key_macro"
     },
     {
@@ -60,30 +97,6 @@
         ],
         "target_uinput": "keyboard",
         "output_symbol": "exec(\"/home/niels/marcade/home.sh\")",
-        "mapping_type": "key_macro"
-    },
-    {
-        "input_combination": [
-            {
-                "type": 1,
-                "code": 289,
-                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
-            }
-        ],
-        "target_uinput": "mouse",
-        "output_symbol": "mouse(down, 3)",
-        "mapping_type": "key_macro"
-    },
-    {
-        "input_combination": [
-            {
-                "type": 1,
-                "code": 291,
-                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
-            }
-        ],
-        "target_uinput": "mouse",
-        "output_symbol": "mouse(up, 3)",
         "mapping_type": "key_macro"
     }
 ]

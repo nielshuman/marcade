@@ -2,26 +2,14 @@
     {
         "input_combination": [
             {
-                "type": 1,
-                "code": 290,
-                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
-            }
-        ],
-        "target_uinput": "keyboard",
-        "output_symbol": "Up",
-        "mapping_type": "key_macro"
-    },
-    {
-        "input_combination": [
-            {
                 "type": 3,
-                "code": 0,
+                "code": 1,
                 "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21",
                 "analog_threshold": -1
             }
         ],
-        "target_uinput": "keyboard",
-        "output_symbol": "Left",
+        "target_uinput": "mouse",
+        "output_symbol": "mouse(up, 3)",
         "mapping_type": "key_macro"
     },
     {
@@ -33,8 +21,8 @@
                 "analog_threshold": 1
             }
         ],
-        "target_uinput": "keyboard",
-        "output_symbol": "Right",
+        "target_uinput": "mouse",
+        "output_symbol": "mouse(right, 3)",
         "mapping_type": "key_macro"
     },
     {
@@ -46,8 +34,21 @@
                 "analog_threshold": 1
             }
         ],
-        "target_uinput": "keyboard",
-        "output_symbol": "Down",
+        "target_uinput": "mouse",
+        "output_symbol": "mouse(down, 3)",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 3,
+                "code": 0,
+                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21",
+                "analog_threshold": -1
+            }
+        ],
+        "target_uinput": "mouse",
+        "output_symbol": "mouse(left, 3)",
         "mapping_type": "key_macro"
     },
     {
@@ -66,24 +67,12 @@
         "input_combination": [
             {
                 "type": 1,
-                "code": 289,
+                "code": 290,
                 "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
             }
         ],
         "target_uinput": "mouse",
-        "output_symbol": "mouse(down, 3)",
-        "mapping_type": "key_macro"
-    },
-    {
-        "input_combination": [
-            {
-                "type": 1,
-                "code": 291,
-                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
-            }
-        ],
-        "target_uinput": "mouse",
-        "output_symbol": "mouse(up, 3)",
+        "output_symbol": "BTN_LEFT",
         "mapping_type": "key_macro"
     }
 ]

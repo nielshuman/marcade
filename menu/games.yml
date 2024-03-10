@@ -4,23 +4,33 @@
   id: construction
 - display_name: Fireboy and Watergirl
   id: fireboy-watergirl
-  p1: fireboy1
-  p2: fireboy2
+  p1: fireboy2
+  p2: fireboy1
 - display_name: Fly Guy
   id: flyguy
   p1: flyguy1
   p2: flyguy1
 - display_name: Alien Homonid
   id: alien
+  p1: alien1
+  p2: alien2
 - display_name: Maze Akimbo
   id: maze
   p1: maze1
   p2: maze1
 - display_name: Marc's Quest
   id: marcsquest
+  p1: marcsquest1
+  p2: marcsquest1
 - display_name: de Krosse Reloaded XI
   id: reloaded
+  p1: krosse1
+  p2: krosse2
 - display_name: Digger
   id: digger
+  p1: digger1
+  p2: digger1
 - display_name: Dynablaster
   id: dynablaster
+  p1: dynablaster1
+  p2: dynablaster1
