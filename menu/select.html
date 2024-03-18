@@ -85,6 +85,39 @@
             text-align: center;
             margin-bottom: 50px;
         }
+
+        .author {
+            float: right;
+            animation: fadeIn 1s linear;
+            display: none;
+            white-space: pre;
+            color: #6e6e6e;
+        }
+
+        .author.long {
+            font-size: 20px;
+            float: none;
+            padding-top: 5px;
+            padding-bottom: 10px;
+        }
+
+        .option.selected .author {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
     </style>
     <link href="/fonts.css" rel="stylesheet">
     <link href="animations/animations.css" rel="stylesheet">
@@ -146,7 +179,18 @@
             games.forEach((option, index) => {
                 const optionElement = document.createElement('div');
                 optionElement.classList.add('option');
-                optionElement.textContent = option.display_name; // Display the name
+                // option.author = 'poep';
+                if (option.author) {
+                    if (option.author.length > 20) {
+                        authordiv = `<div class="author long">${option.author}</div>`
+                    }
+                    else {
+                        authordiv = `<div class="author"> - ${option.author}</div>`
+                    }
+                } else {
+                    authordiv = '';
+                }
+                optionElement.innerHTML = (option.display_name || option.id) + authordiv;
                 optionsContainer.appendChild(optionElement);
             });
             highlightOption(selectedIndex);

@@ -1,6 +1,7 @@
 - display_name: Gun Wizard
   id: gunwizard
 - display_name: Gare constructie pagina
+  author: Niels Iskander Huisman
   id: construction
 - display_name: Fireboy and Watergirl
   id: fireboy-watergirl
@@ -15,10 +16,12 @@
   p1: alien1
   p2: alien2
 - display_name: Maze Akimbo
+  author: Morris Bakker
   id: maze
   p1: maze1
   p2: maze1
 - display_name: Marc's Quest
+  author: Daan Schenkel
   id: marcsquest
   p1: marcsquest1
   p2: marcsquest1
@@ -30,6 +33,9 @@
   id: digger
   p1: digger1
   p2: digger1
+- display_name: Space Escape
+  author: Niels Huisman, Abel Beringen en Lola Boswijk | WO+ project 2020
+  id: space
 - display_name: Dynablaster
   id: dynablaster
   p1: dynablaster1
