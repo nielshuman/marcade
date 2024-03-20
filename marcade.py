@@ -24,6 +24,7 @@ if args.serve:
 
 import signal
 import time
+import subprocess
 try:
     import gpiozero
 except ImportError:
@@ -56,7 +57,18 @@ def launch_game(game_id):
     print('Launching game', game_id)
     send_stop_music_signal()
     game = get_game_by_id(game_id)
-    kiosk.get(gamesServer.url + game.get('path', game['id']))
+
+    game_type = game.get('type', 'web')
+    game_path = game.get('path', game['id'])
+
+    if game_type == 'web':
+        kiosk.get(gamesServer.url + game_path)
+    elif game_type == 'exec':
+        kiosk.get(menuServer.url + 'wait.png')
+        game_process = subprocess.Popen(game['command'], cwd=os.path.join('games', game_path))
+        with open('.game.pid', 'w') as f:
+            f.write(str(game_process.pid))
+
     controllers.P1.start(game.get('p1', 'default_1'))
     controllers.P2.start(game.get('p2', 'default_2'))
 
@@ -74,6 +86,10 @@ def go_to_menu(*args):
     print('Going to menu')
     kiosk.get(menuServer.url + 'select.html')
     Music.play(Music.menu, fade_in=False)
+    if os.path.exists('.game.pid'):
+        with open('.game.pid', 'r') as f:
+            os.kill(int(f.read()), signal.SIGTERM)
+        os.remove('.game.pid')
     controllers.P1.start('menu')
     controllers.P2.stop()
 
@@ -101,3 +117,8 @@ menuServer.stop()
 controllers.stop_all()
 close()
 os.remove('.marcade.pid')
+
+if os.path.exists('.game.pid'):
+    with open('.game.pid', 'r') as f:
+        os.kill(int(f.read()), signal.SIGTERM)
+    os.remove('.game.pid')

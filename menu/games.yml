@@ -1,6 +1,11 @@
 - display_name: Gun Wizard
   author: robotzap10000 (+ thepartyslime)
   id: gunwizard
+- display_name: Gun Wizard (v2)
+  author: robotzap10000 (+ thepartyslime)
+  id: gunwizardv2
+  type: exec
+  command: ['python3', 'main.pyw']
 - display_name: Gare constructie pagina
   author: Niels Iskander Huisman
   id: construction
