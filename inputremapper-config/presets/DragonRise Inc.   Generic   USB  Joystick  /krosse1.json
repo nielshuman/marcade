@@ -61,6 +61,7 @@
         ],
         "target_uinput": "keyboard",
         "output_symbol": "j",
+        "name": "geel",
         "mapping_type": "key_macro"
     },
     {

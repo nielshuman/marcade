@@ -1,8 +1,5 @@
 - display_name: Gun Wizard
   author: robotzap10000 (+ thepartyslime)
-  id: gunwizard
-- display_name: Gun Wizard (v2)
-  author: robotzap10000 (+ thepartyslime)
   id: gunwizardv2
   type: exec
   p1: gunwizard1
@@ -44,6 +41,8 @@
 - display_name: Space Escape
   author: Niels Huisman, Abel Beringen en Lola Boswijk | WO+ project 2020
   id: space
+  p1: space1
+  p2: space1
 - display_name: Dynablaster
   id: dynablaster
   p1: dynablaster1
