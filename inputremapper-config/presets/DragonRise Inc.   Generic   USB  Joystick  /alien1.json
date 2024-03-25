@@ -72,7 +72,7 @@
             }
         ],
         "target_uinput": "keyboard",
-        "output_symbol": "a",
+        "output_symbol": "s",
         "mapping_type": "key_macro"
     },
     {
@@ -84,7 +84,7 @@
             }
         ],
         "target_uinput": "keyboard",
-        "output_symbol": "s",
+        "output_symbol": "a",
         "mapping_type": "key_macro"
     }
 ]
