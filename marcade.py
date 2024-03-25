@@ -60,11 +60,13 @@ def launch_game(game_id):
 
     game_type = game.get('type', 'web')
     game_path = game.get('path', game['id'])
-
+    print('gametype: ' + game_type)
     if game_type == 'web':
         kiosk.get(gamesServer.url + game_path)
     elif game_type == 'exec':
-        kiosk.get(menuServer.url + 'wait.png')
+        print('exec!')
+        kiosk.get(gamesServer.url + 'wait.png')
+        print('huh')
         game_process = subprocess.Popen(game['command'], cwd=os.path.join('games', game_path))
         with open('.game.pid', 'w') as f:
             f.write(str(game_process.pid))
@@ -88,7 +90,11 @@ def go_to_menu(*args):
     Music.play(Music.menu, fade_in=False)
     if os.path.exists('.game.pid'):
         with open('.game.pid', 'r') as f:
-            os.kill(int(f.read()), signal.SIGTERM)
+            try:
+                os.kill(int(f.read()), signal.SIGTERM)
+            except ProcessLookupError:
+                pass
+
         os.remove('.game.pid')
     controllers.P1.start('menu')
     controllers.P2.stop()

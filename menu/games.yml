@@ -5,6 +5,8 @@
   author: robotzap10000 (+ thepartyslime)
   id: gunwizardv2
   type: exec
+  p1: gunwizard1
+  p2: gunwizard2
   command: ['python3', 'main.pyw']
 - display_name: Gare constructie pagina
   author: Niels Iskander Huisman
