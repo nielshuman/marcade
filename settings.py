@@ -1,3 +1,6 @@
-# coin value in seconds
-COIN_TIME_VALUE = 5.5 * 60
-DISABLE_CONTROLLERS = True
+from math import inf
+
+# coin value in seconds, use inf for unlimited time
+COIN_TIME_VALUE = 0.6 * 60
+DISABLE_CONTROLLERS = False
+

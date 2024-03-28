@@ -83,7 +83,26 @@
             font-family: 'Press Start 2P', cursive;
             font-size: 50px;
             text-align: center;
-            margin-bottom: 50px;
+            /* margin-bottom: 50px; */
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Press Start 2P', cursive;
+            /* animation: textFlash 1s steps(1) infinite alternate; */
+        }
+
+        @keyframes textFlash {
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
         }
 
         .author {
@@ -126,6 +145,7 @@
 <body>
     <div>
         <div class="title animate-charcter">MARCADE</div>
+        <div class="subtitle"></div>
         <div class="menu">
             <div class="options" id="options-container">
         </div>
@@ -147,8 +167,33 @@
     <script src="/lib/js-yaml.min.js" crossorigin="anonymous"></script>
     <script>
 
-        const optionsContainer = document.getElementById('options-container');
-        let selectedIndex = 0;
+        const hash = window.location.hash.slice(1);
+
+        const parameters = hash.split('&').reduce((res, item) => {
+            const [key, value] = item.split('=');
+            res[key] = value;
+            return res;
+        }, {});
+
+        if (parameters.time_left) {
+
+            let time_left = parseInt(parameters.time_left);
+            const sub = document.querySelector('.subtitle');
+            
+            function updateTimeLeft() {
+                const minutes = Math.floor(time_left / 60);
+                const seconds = time_left % 60;
+                sub.textContent = `TIME LEFT: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+            updateTimeLeft();
+            setInterval(() => {
+                time_left -= 1;
+                updateTimeLeft();
+            }, 1000);
+            
+        }
+            const optionsContainer = document.getElementById('options-container');
+            let selectedIndex = 0;
         let socket = io();
         let games = {};
 

@@ -24,6 +24,7 @@ class Voice:
     m2 = openal.oalOpen('audio/voice/2m.wav')
     m5 = openal.oalOpen('audio/voice/5m.wav')
     s30 = openal.oalOpen('audio/voice/30s.wav')
+    up = openal.oalOpen('audio/voice/time_is_up.wav')
     played = []
 
     def play(voice):

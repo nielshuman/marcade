@@ -87,6 +87,7 @@ def coin_inserted():
     Sound.coin.play()
     Voice.reset()
 def expire():
+    Voice.play(Voice.up)
     print('Time expired')
     global EXPIRERY_TIME
     EXPIRERY_TIME = -1
@@ -124,6 +125,11 @@ else:
     time.sleep(5)
     coin_inserted()
 
+def tarp(n):
+    if (n * 60) > COIN_TIME_VALUE:
+        return -1
+    return (n * 60) + 2
+
 while is_open(kiosk):
     if EXPIRERY_TIME > 0 and time.time() > EXPIRERY_TIME:
         expire()
@@ -131,13 +137,13 @@ while is_open(kiosk):
     # when 5, 2, 1 minutes left, play voice
     time_left = EXPIRERY_TIME - time.time()
     if time_left > 0 and time_left <= COIN_TIME_VALUE:
-        if time_left < 30:
+        if time_left < 31:
             Voice.play(Voice.s30)
-        elif time_left < 1 * 60:
+        elif time_left < tarp(1):
             Voice.play(Voice.m1)
-        elif time_left < 2 * 60:
+        elif time_left < tarp(2):
             Voice.play(Voice.m2)
-        elif time_left < 5 * 60:
+        elif time_left < tarp(5):
             Voice.play(Voice.m5)
     
     print(time_left)
