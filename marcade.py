@@ -3,6 +3,9 @@ import sys
 import argparse
 from serve2 import DingesServer
 import time
+import signal
+import time
+import subprocess
 
 # Change the working directory to the directory of the script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -22,16 +25,16 @@ if args.serve:
     sys.exit(0)
 
 
-import signal
-import time
-import subprocess
+EXPIRERY_TIME = -1
+from settings import COIN_TIME_VALUE
+
 try:
     import gpiozero
 except ImportError:
     gpiozero = None
 from kiosk import kiosk_driver, is_open
 from util import get_game_by_id
-from audio import Sound, Music, close
+from audio import Sound, Music, Voice, close
 import controllers
 # from sound import play_sound, play_music, stop_music
 
@@ -76,18 +79,25 @@ def launch_game(game_id):
 
 def coin_inserted():
     print('Coin inserted')
+    global EXPIRERY_TIME
+    currently_playing = (EXPIRERY_TIME > time.time())
+    EXPIRERY_TIME = time.time() + COIN_TIME_VALUE
+    if not currently_playing:
+        go_to_menu()
     Sound.coin.play()
-    go_to_menu()
-
+    Voice.reset()
 def expire():
     print('Time expired')
+    global EXPIRERY_TIME
+    EXPIRERY_TIME = -1
     kiosk.get(menuServer.url + 'insert_coin.html')
     # antimciroX.change_profile('empty')
 
 def go_to_menu(*args):
     print('Going to menu')
-    kiosk.get(menuServer.url + 'select.html')
+    kiosk.get(menuServer.url + 'select.html' + '?time_left=' + str(EXPIRERY_TIME - time.time()))
     Music.play(Music.menu, fade_in=False)
+
     if os.path.exists('.game.pid'):
         with open('.game.pid', 'r') as f:
             try:
@@ -115,6 +125,24 @@ else:
     coin_inserted()
 
 while is_open(kiosk):
+    if EXPIRERY_TIME > 0 and time.time() > EXPIRERY_TIME:
+        expire()
+    
+    # when 5, 2, 1 minutes left, play voice
+    time_left = EXPIRERY_TIME - time.time()
+    if time_left > 0 and time_left <= COIN_TIME_VALUE:
+        if time_left < 30:
+            Voice.play(Voice.s30)
+        elif time_left < 1 * 60:
+            Voice.play(Voice.m1)
+        elif time_left < 2 * 60:
+            Voice.play(Voice.m2)
+        elif time_left < 5 * 60:
+            Voice.play(Voice.m5)
+    
+    print(time_left)
+
+
     time.sleep(1)
 
 print('Browser is closed, stopping servers and AntimicroX')

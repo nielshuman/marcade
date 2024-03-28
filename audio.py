@@ -1,5 +1,8 @@
 import openal
 import time
+import pulsectl
+
+pulse = pulsectl.Pulse('Marcade')
 
 FADE_OUT_WHEN_STOPPING = True
 FADE_IN_WHEN_STARTING = True
@@ -15,6 +18,30 @@ class Sound:
         if block:
             while sound.get_state() == openal.AL_PLAYING:
                 pass
+
+class Voice:
+    m1 = openal.oalOpen('audio/voice/1m.wav')
+    m2 = openal.oalOpen('audio/voice/2m.wav')
+    m5 = openal.oalOpen('audio/voice/5m.wav')
+    s30 = openal.oalOpen('audio/voice/30s.wav')
+    played = []
+
+    def play(voice):
+        if voice in Voice.played:
+            return
+        Voice.played.append(voice)
+        
+        set_process_volume('chromium', 0.3)
+        if Music.current:
+            Music.current.set_gain(0.2)
+        voice.play()
+        while voice.get_state() == openal.AL_PLAYING:
+            pass
+        set_process_volume('chromium', 1)
+        if Music.current:
+            Music.current.set_gain(1)
+    def reset():
+        Voice.played = []
 
 class Music:
     menu = openal.oalOpen('audio/music/menu.wav')
@@ -49,3 +76,10 @@ class Music:
         Music.current = song
 
 close = openal.oalQuit
+
+def set_process_volume(binary_or_name, volume):
+    for sink in pulse.sink_list():
+        if binary_or_name.lower() in sink.proplist.get('application.process.binary', '').lower() or binary_or_name.lower() in sink.proplist.get('application.name', '').lower():
+            pulse.volume_set_all_chans(sink, volume)
+            return True
+    return False
