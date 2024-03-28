@@ -95,7 +95,7 @@ def expire():
 
 def go_to_menu(*args):
     print('Going to menu')
-    kiosk.get(menuServer.url + 'select.html' + '?time_left=' + str(EXPIRERY_TIME - time.time()))
+    kiosk.get(menuServer.url + 'select.html' + '#time_left=' + str(EXPIRERY_TIME - time.time()))
     Music.play(Music.menu, fade_in=False)
 
     if os.path.exists('.game.pid'):

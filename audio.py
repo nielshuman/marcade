@@ -34,9 +34,15 @@ class Voice:
         set_process_volume('chromium', 0.3)
         if Music.current:
             Music.current.set_gain(0.2)
+
+        time.sleep(0.5)
+
         voice.play()
         while voice.get_state() == openal.AL_PLAYING:
             pass
+
+        time.sleep(0.5)
+
         set_process_volume('chromium', 1)
         if Music.current:
             Music.current.set_gain(1)
@@ -78,7 +84,7 @@ class Music:
 close = openal.oalQuit
 
 def set_process_volume(binary_or_name, volume):
-    for sink in pulse.sink_list():
+    for sink in pulse.sink_input_list():
         if binary_or_name.lower() in sink.proplist.get('application.process.binary', '').lower() or binary_or_name.lower() in sink.proplist.get('application.name', '').lower():
             pulse.volume_set_all_chans(sink, volume)
             return True
