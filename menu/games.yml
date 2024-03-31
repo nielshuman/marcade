@@ -5,9 +5,6 @@
   p1: gunwizard1
   p2: gunwizard2
   command: ['python3', 'main.pyw']
-- display_name: Gare constructie pagina
-  author: Niels Iskander Huisman
-  id: construction
 - display_name: Fireboy and Watergirl
   id: fireboy-watergirl
   p1: fireboy2
@@ -31,6 +28,9 @@
   p1: marcsquest1
   p2: marcsquest1
 - display_name: de Krosse Reloaded XI
+  author: |
+    Bastiaan van der Linde, Cedric de Jager, Dris van Delden
+    Jonas Hovenkamp en Yannick Botter
   id: reloaded
   p1: krosse1
   p2: krosse2
