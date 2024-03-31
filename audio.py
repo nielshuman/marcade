@@ -1,3 +1,5 @@
+from settings import CHROMIUM_BINARY
+
 import openal
 import time
 import pulsectl
@@ -35,7 +37,7 @@ class Voice:
             return False
         Voice.played.append(voice)
         
-        set_process_volume('chromium', 0.3)
+        set_process_volume(CHROMIUM_BINARY, 0.3)
         if Music.current:
             Music.current.set_gain(0.2)
 
@@ -49,7 +51,7 @@ class Voice:
             return True
 
         time.sleep(0.5)
-        set_process_volume('chromium', 1)
+        set_process_volume(CHROMIUM_BINARY, 1)
         if Music.current:
             Music.current.set_gain(1)
 

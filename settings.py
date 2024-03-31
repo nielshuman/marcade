@@ -7,3 +7,4 @@ SKIP_BOOT_ANIMATION = False
 # propably not useful for Marc
 DISABLE_CONTROLLERS = False
 DISABLE_CONTROLLERS_IF_NOT_PI = True
+CHROMIUM_BINARY = 'chromium-browser'
