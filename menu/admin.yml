@@ -1,0 +1,15 @@
+- display_name: Exit
+  author: To main menu
+  id: mainmenu
+  type: exec
+  command: ['sh', '~/marcade/home.sh']
+- display_name: Edit preferences
+  author: Mouse and keyboard required
+  id: preferences
+  type: exec
+  command: ['code', '~/marcade/settings.py']
+- display_name: Edit games
+  author: Mouse and keyboard required
+  id: edit_games
+  type: exec
+  command: ['code', '~/marcade/games.yml']

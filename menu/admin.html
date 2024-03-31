@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcade Menu</title>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(to right bottom, #000000, 80%, #bf00ff);
+            /* background: linear-gradient(to right bottom in hsl longer hue, #000000, #ae0000); */
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            animation: gradientAnimation 3.5s infinite alternate-reverse ease;
+            background-size: 200% 200%;
+            cursor: none;
+            overflow: hidden;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 60% 80%;
+            }
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 600px;
+            font-family: 'clacon';
+            font-size: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            cursor: pointer;
+            font-size: 20px;
+            color: #fff;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .option.selected {
+            font-size: 35px;
+            /* font-weight: bold; */
+            /* text-decoration: underline; */
+        }
+
+        .image {
+            width: 300px;
+            height: 200px;
+            background-image: url('path/to/your/image.png');
+            background-size: cover;
+            background-position: center;
+            animation: fadeOut 5s linear infinite;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 50px;
+            text-align: center;
+            /* margin-bottom: 50px; */
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Press Start 2P', cursive;
+            /* animation: textFlash 1s steps(1) infinite alternate; */
+        }
+
+        @keyframes textFlash {
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .author {
+            float: right;
+            animation: fadeIn 1s linear;
+            display: none;
+            white-space: pre;
+            color: #6e6e6e;
+        }
+
+        .author.long {
+            font-size: 20px;
+            float: none;
+            padding-top: 5px;
+            padding-bottom: 10px;
+        }
+
+        .option.selected .author {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+    <link href="/fonts.css" rel="stylesheet">
+    <link href="animations/animations.css" rel="stylesheet">
+</head>
+
+<body>
+    <div>
+        <div class="title animate-charcter">MARCADE</div>
+        <div class="subtitle">ADMIN PAGE</div>
+        <div class="menu">
+            <div class="options" id="options-container">
+        </div>
+            <div>
+                <!-- Placeholder image -->
+                <!-- <img src="https://placehold.co/192x108" class="chill-border" alt="Placeholder image"> -->
+            </div>
+        </div>
+    </div>
+    <div id="mario"></div>
+    
+    <script src="animations/animations.js" anonymous"></script>
+    <script>
+        setTimeout(animateMario, 5000);
+        setInterval(animateMario, MARIO_DURATION + 5000);
+    </script>
+
+    <script src="/lib/socket.js" crossorigin="anonymous"></script>
+    <script src="/lib/js-yaml.min.js" crossorigin="anonymous"></script>
+    <script>
+
+        const hash = window.location.hash.slice(1);
+
+        const parameters = hash.split('&').reduce((res, item) => {
+            const [key, value] = item.split('=');
+            res[key] = value;
+            return res;
+        }, {});
+
+        if (parameters.time_left) {
+            let time_left = parseInt(parameters.time_left);
+            if (parameters.time_left == 'inf') {
+                time_left = Infinity;
+            }
+            const sub = document.querySelector('.subtitle');
+            
+            function updateTimeLeft() {
+                if (time_left === Infinity) {
+                    sub.textContent = 'INFINITE PLAYTIME!';
+                    return;
+                }
+                const minutes = Math.floor(time_left / 60);
+                const seconds = time_left % 60;
+                sub.textContent = `TIME LEFT: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+            updateTimeLeft();
+            setInterval(() => {
+                time_left = Math.max(0, time_left - 1);
+                updateTimeLeft();
+            }, 1000);
+            
+        }
+        const optionsContainer = document.getElementById('options-container');
+        let selectedIndex = 0;
+        let socket = io();
+        let games = {};
+
+        function highlightOption(index) {
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, i) => {
+                if (i === index) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'ArrowUp' && selectedIndex > 0) {
+                selectedIndex--;
+            } else if (event.key === 'ArrowDown' && selectedIndex < games.length - 1) {
+                selectedIndex++;
+            } else if (event.key === 'Enter') {
+                socket.emit('launch_game', games[selectedIndex].id);
+            }
+            highlightOption(selectedIndex);
+        }
+
+        fetch('/admin.yml').then(r => r.text()).then(t => {
+            games = jsyaml.load(t)
+            games.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                // option.author = 'poep';
+                if (option.author) {
+                    if (option.author.length > 20) {
+                        authordiv = `<div class="author long">${option.author}</div>`
+                    }
+                    else {
+                        authordiv = `<div class="author"> - ${option.author}</div>`
+                    }
+                } else {
+                    authordiv = '';
+                }
+                optionElement.innerHTML = (option.display_name || option.id) + authordiv;
+                optionsContainer.appendChild(optionElement);
+            });
+            highlightOption(selectedIndex);
+        });
+        
+        document.addEventListener('keydown', handleKeyDown);
+        // Highlight the initially selected option
+
+    </script>
+</body>
+
+</html>

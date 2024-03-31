@@ -74,8 +74,13 @@ def launch_game(game_id):
         with open('.game.pid', 'w') as f:
             f.write(str(game_process.pid))
 
-    controllers.P1.start(game.get('p1', 'default_1'))
-    controllers.P2.start(game.get('p2', 'default_2'))
+    # controllers.P1.start(game.get('p1', 'default_1'))
+    # controllers.P2.start(game.get('p2', 'default_2'))
+
+    if 'p1' in game:
+        controllers.P1.start(game['p1'])
+    if 'p2' in game:
+        controllers.P2.start(game['p2'])
 
 def coin_inserted():
     print('Coin inserted')
@@ -94,22 +99,15 @@ def expire():
     global EXPIRERY_TIME
     EXPIRERY_TIME = -1
 
+    kill_current_game()
     kiosk.get(menuServer.url + 'insert_coin.html')
-    if os.path.exists('.game.pid'):
-        with open('.game.pid', 'r') as f:
-            os.kill(int(f.read()), signal.SIGTERM)
-        os.remove('.game.pid')
-    
     controllers.P1.start('menu')
     controllers.P2.stop()
 
     # antimciroX.change_profile('empty')
 
-def go_to_menu(*args):
-    print('Going to menu')
-    kiosk.get(menuServer.url + 'select.html' + '#time_left=' + str(EXPIRERY_TIME - time.time()))
-    Music.play(Music.menu, fade_in=False)
-
+def kill_current_game():
+    """Kill the current exec type game, if there is one running."""
     if os.path.exists('.game.pid'):
         with open('.game.pid', 'r') as f:
             try:
@@ -118,6 +116,14 @@ def go_to_menu(*args):
                 pass
 
         os.remove('.game.pid')
+
+def go_to_menu(*args):
+    print('Going to menu')
+    kiosk.get(menuServer.url + 'select.html' + '#time_left=' + str(EXPIRERY_TIME - time.time()))
+    Music.play(Music.menu, fade_in=False)
+
+    kill_current_game()
+
     controllers.P1.start('menu')
     controllers.P2.stop()
 
