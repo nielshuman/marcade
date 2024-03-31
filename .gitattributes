@@ -11,3 +11,4 @@ lib/** linguist-vendored
 *.wav filter=lfs diff=lfs merge=lfs -text
 games/space/* filter=lfs diff=lfs merge=lfs -text pack
 *.ttf filter=lfs diff=lfs merge=lfs -text
+jsdos filter=lfs diff=lfs merge=lfs -text
