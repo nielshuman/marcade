@@ -1,21 +1,3 @@
-- display_name: Edit preferences
-  id: preferences
-  author: Mouse and keyboard required, restart to apply changes
-  type: exec
-  command: ['gedit', 'settings.py']
-- display_name: Edit games
-  author: Mouse and keyboard required
-  id: edit_games
-  type: exec
-  command: ['gedit', 'menu/games.yml']
-- display_name: Edit button mappings
-  author: |
-    Mouse and keyboard required.
-    Preset names are case sensitive, referenced in games configuration.
-    Make sure to select the correct controller, for making presets for P1 and P2.
-  id: edit_mappings
-  type: exec
-  command: ['input-remapper-gtk']
 - display_name: Quit admin menu
   author: To main menu
   id: mainmenu
@@ -39,3 +21,21 @@
     button of P1 and the (red) home button simultaneously.
   type: exec
   command: ['sudo', 'shutdown', '-h', 'now']
+- display_name: Edit preferences
+  id: preferences
+  author: Mouse and keyboard required, restart to apply changes
+  type: exec
+  command: ['gedit', 'settings.py']
+- display_name: Edit games
+  author: Mouse and keyboard required
+  id: edit_games
+  type: exec
+  command: ['gedit', 'menu/games.yml']
+- display_name: Edit button mappings
+  author: |
+    Mouse and keyboard required.
+    Preset names are case sensitive, referenced in games configuration.
+    Make sure to select the correct controller, for making presets for P1 and P2.
+  id: edit_mappings
+  type: exec
+  command: ['input-remapper-gtk']

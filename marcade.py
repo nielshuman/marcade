@@ -71,9 +71,7 @@ def launch_game(game_id):
     if game_type == 'web':
         kiosk.get(gamesServer.url + game_path)
     elif game_type == 'exec':
-        print('exec!')
         kiosk.get(gamesServer.url + 'wait.png')
-        print('huh')
         game_process = subprocess.Popen(game['command'], cwd=os.path.join('games', game_path))
         with open('.game.pid', 'w') as f:
             f.write(str(game_process.pid))
@@ -126,6 +124,8 @@ def go_to_menu(*args):
 
     if EXPIRERY_TIME == -1:
         kiosk.get(menuServer.url + 'insert_coin.html')
+        Music.stop()
+        return
 
     kiosk.get(menuServer.url + 'select.html' + '#time_left=' + str(EXPIRERY_TIME - time.time()))
     Music.play(Music.menu, fade_in=False)
@@ -138,10 +138,10 @@ def go_to_menu(*args):
 def go_to_admin(*args):
     print('Going to admin')
     kiosk.get(menuServer.url + 'admin.html')
-    EXPIRERY_TIME = inf
+    global EXPIRERY_TIME
+    EXPIRERY_TIME = -1
 
-    if Music.current:
-        Music.stop(fade=False)
+    Music.stop(fade=False)
     Music.play(Music.menu, fade_in=False)
 
     kill_current_game()

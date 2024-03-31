@@ -47,3 +47,7 @@
   id: dynablaster
   p1: dynablaster1
   p2: dynablaster1
+- display_name: Doom
+  id: doom
+  p1: doom1
+  p2: doom2
