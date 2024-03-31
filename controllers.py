@@ -1,5 +1,11 @@
 import subprocess
-from settings import DISABLE_CONTROLLERS
+import settings
+
+if settings.DISABLE_CONTROLLERS_IF_NOT_PI:
+    try:
+        import gpiozero
+    except ImportError:
+        settings.DISABLE_CONTROLLERS = True
 
 def input_remapper_control(deamon_command, device=None, preset=None):
     command = ['input-remapper-control']
@@ -23,13 +29,13 @@ class Controller:
         self.display_name = display_name or name
     
     def start(self, preset):
-        if DISABLE_CONTROLLERS:
+        if settings.DISABLE_CONTROLLERS:
             return
         print(f'Starting controller {self.display_name} with preset {preset}')
         input_remapper_control('start', device=self.device_name, preset=preset)
     
     def stop(self):
-        if DISABLE_CONTROLLERS:
+        if settings.DISABLE_CONTROLLERS:
             return
         input_remapper_control('stop', device=self.device_name)
 

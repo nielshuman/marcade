@@ -142,7 +142,6 @@ def tarp(n):
     return (n * 60) + 2
 
 while is_open(kiosk):
-    print('A')
     if EXPIRERY_TIME > 0 and time.time() > EXPIRERY_TIME:
         expire()
     
