@@ -12,6 +12,7 @@ FADE_STEPS = 20
 class Sound:
     coin = openal.oalOpen('audio/sound/coin.wav')
     start = openal.oalOpen('audio/sound/start.wav')
+    timeover = openal.oalOpen('audio/sound/timeover.wav')
 
     def play(sound, block=False):
         sound.play()
@@ -25,11 +26,13 @@ class Voice:
     m5 = openal.oalOpen('audio/voice/5m.wav')
     s30 = openal.oalOpen('audio/voice/30s.wav')
     up = openal.oalOpen('audio/voice/time_is_up.wav')
+    countdown = openal.oalOpen('audio/voice/countdown.wav')
+    
     played = []
 
-    def play(voice):
+    def play(voice, chain=False):
         if voice in Voice.played:
-            return
+            return False
         Voice.played.append(voice)
         
         set_process_volume('chromium', 0.3)
@@ -41,12 +44,17 @@ class Voice:
         voice.play()
         while voice.get_state() == openal.AL_PLAYING:
             pass
+        
+        if chain:
+            return True
 
         time.sleep(0.5)
-
         set_process_volume('chromium', 1)
         if Music.current:
             Music.current.set_gain(1)
+
+        return True
+    
     def reset():
         Voice.played = []
 

@@ -88,10 +88,21 @@ def coin_inserted():
     Voice.reset()
 def expire():
     Voice.play(Voice.up)
+    Sound.play(Sound.timeover)
+
     print('Time expired')
     global EXPIRERY_TIME
     EXPIRERY_TIME = -1
+
     kiosk.get(menuServer.url + 'insert_coin.html')
+    if os.path.exists('.game.pid'):
+        with open('.game.pid', 'r') as f:
+            os.kill(int(f.read()), signal.SIGTERM)
+        os.remove('.game.pid')
+    
+    controllers.P1.start('menu')
+    controllers.P2.stop()
+
     # antimciroX.change_profile('empty')
 
 def go_to_menu(*args):
@@ -122,7 +133,7 @@ if gpiozero and not args.no_coin:
     print('Listening for coin')
 else:
     print('Not listening for coin')
-    time.sleep(5)
+    time.sleep(1)
     coin_inserted()
 
 def tarp(n):
@@ -131,13 +142,17 @@ def tarp(n):
     return (n * 60) + 2
 
 while is_open(kiosk):
+    print('A')
     if EXPIRERY_TIME > 0 and time.time() > EXPIRERY_TIME:
         expire()
     
     # when 5, 2, 1 minutes left, play voice
     time_left = EXPIRERY_TIME - time.time()
     if time_left > 0 and time_left <= COIN_TIME_VALUE:
-        if time_left < 31:
+        if time_left < 7:
+            Voice.play(Voice.countdown, chain=True)
+            expire()
+        if time_left < tarp(0.5):
             Voice.play(Voice.s30)
         elif time_left < tarp(1):
             Voice.play(Voice.m1)
@@ -145,10 +160,6 @@ while is_open(kiosk):
             Voice.play(Voice.m2)
         elif time_left < tarp(5):
             Voice.play(Voice.m5)
-    
-    print(time_left)
-
-
     time.sleep(1)
 
 print('Browser is closed, stopping servers and AntimicroX')
