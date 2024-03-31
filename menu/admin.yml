@@ -1,15 +1,41 @@
-- display_name: Exit
-  author: To main menu
-  id: mainmenu
-  type: exec
-  command: ['sh', '~/marcade/home.sh']
 - display_name: Edit preferences
-  author: Mouse and keyboard required
   id: preferences
+  author: Mouse and keyboard required, restart to apply changes
   type: exec
-  command: ['code', '~/marcade/settings.py']
+  command: ['gedit', 'settings.py']
 - display_name: Edit games
   author: Mouse and keyboard required
   id: edit_games
   type: exec
-  command: ['code', '~/marcade/games.yml']
+  command: ['gedit', 'menu/games.yml']
+- display_name: Edit button mappings
+  author: |
+    Mouse and keyboard required.
+    Preset names are case sensitive, referenced in games configuration.
+    Make sure to select the correct controller, for making presets for P1 and P2.
+  id: edit_mappings
+  type: exec
+  command: ['input-remapper-gtk']
+- display_name: Quit admin menu
+  author: To main menu
+  id: mainmenu
+  type: exec
+  command: ['sh', 'home.sh']
+- display_name: Quit marcade
+  author: To desktop
+  id: quit
+  type: exec
+  # PID: $(cat .marcade.pid)
+  # command: ['kill', '-s', 'SIGTERM', '$(cat .marcade.pid)']
+  command: ['bash', '-c', 'killall chromium-browser; killall chromium']
+- display_name: Restart
+  id: reboot
+  type: exec
+  command: ['sudo', 'shutdown', '-r', 'now']
+- display_name: Shutdown
+  id: shutdown
+  author: |
+    To turn off the system, you can also press the red 
+    button of P1 and the (red) home button simultaneously.
+  type: exec
+  command: ['sudo', 'shutdown', '-h', 'now']

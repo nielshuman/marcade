@@ -6,6 +6,7 @@ import time
 import signal
 import time
 import subprocess
+from math import inf
 
 # Change the working directory to the directory of the script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +27,7 @@ if args.serve:
 
 
 EXPIRERY_TIME = -1
-from settings import COIN_TIME_VALUE
+from settings import COIN_TIME_VALUE, SKIP_BOOT_ANIMATION
 
 try:
     import gpiozero
@@ -48,7 +49,7 @@ def send_stop_music_signal():
 
 gamesServer.start()
 
-if args.delay:
+if args.delay and not SKIP_BOOT_ANIMATION:
     time.sleep(17)
 
 kiosk = kiosk_driver(windowed=args.windowed)
@@ -60,6 +61,9 @@ def launch_game(game_id):
     print('Launching game', game_id)
     send_stop_music_signal()
     game = get_game_by_id(game_id)
+    if not game:
+        print('Game not found')
+        return
 
     game_type = game.get('type', 'web')
     game_path = game.get('path', game['id'])
@@ -119,7 +123,25 @@ def kill_current_game():
 
 def go_to_menu(*args):
     print('Going to menu')
+
+    if EXPIRERY_TIME == -1:
+        kiosk.get(menuServer.url + 'insert_coin.html')
+
     kiosk.get(menuServer.url + 'select.html' + '#time_left=' + str(EXPIRERY_TIME - time.time()))
+    Music.play(Music.menu, fade_in=False)
+
+    kill_current_game()
+
+    controllers.P1.start('menu')
+    controllers.P2.stop()
+
+def go_to_admin(*args):
+    print('Going to admin')
+    kiosk.get(menuServer.url + 'admin.html')
+    EXPIRERY_TIME = inf
+
+    if Music.current:
+        Music.stop(fade=False)
     Music.play(Music.menu, fade_in=False)
 
     kill_current_game()
@@ -132,7 +154,7 @@ menuServer.start()
 kiosk.get(menuServer.url + 'insert_coin.html')
 signal.signal(signal.SIGUSR1, go_to_menu)
 signal.signal(signal.SIGUSR2, Music.stop)
-
+signal.signal(signal.SIGRTMIN, go_to_admin)
 if gpiozero and not args.no_coin:
     coinListener = gpiozero.Button(21)
     coinListener.when_pressed = coin_inserted
@@ -167,14 +189,10 @@ while is_open(kiosk):
             Voice.play(Voice.m5)
     time.sleep(1)
 
-print('Browser is closed, stopping servers and AntimicroX')
+print('Browser is closed, stopping servers and input devices')
 gamesServer.stop()
 menuServer.stop()
 controllers.stop_all()
 close()
+kill_current_game()
 os.remove('.marcade.pid')
-
-if os.path.exists('.game.pid'):
-    with open('.game.pid', 'r') as f:
-        os.kill(int(f.read()), signal.SIGTERM)
-    os.remove('.game.pid')

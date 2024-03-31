@@ -62,12 +62,12 @@ class Music:
     menu = openal.oalOpen('audio/music/menu.wav')
 
     current = None
-    def stop(*args):
+    def stop(*args, fade=True):
         if not Music.current:
             return print('No music to stop')
         print('Stopping music')
         # Fade out music
-        if FADE_OUT_WHEN_STOPPING:
+        if FADE_OUT_WHEN_STOPPING and fade:
             for i in range(FADE_STEPS):
                 Music.current.set_gain(1 - (i / FADE_STEPS))
                 time.sleep(FADE_TIME / FADE_STEPS)
