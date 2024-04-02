@@ -9,7 +9,7 @@
             }
         ],
         "target_uinput": "mouse",
-        "output_symbol": "mouse(up, 5)",
+        "output_symbol": "mouse(up, 15)",
         "mapping_type": "key_macro"
     },
     {
@@ -22,7 +22,7 @@
             }
         ],
         "target_uinput": "keyboard + mouse",
-        "output_symbol": "mouse(down, 5)",
+        "output_symbol": "mouse(down, 15)",
         "mapping_type": "key_macro"
     },
     {
@@ -35,7 +35,7 @@
             }
         ],
         "target_uinput": "mouse",
-        "output_symbol": "mouse(right, 5)",
+        "output_symbol": "mouse(right, 15)",
         "mapping_type": "key_macro"
     },
     {
@@ -48,7 +48,7 @@
             }
         ],
         "target_uinput": "mouse",
-        "output_symbol": "mouse(left,5)",
+        "output_symbol": "mouse(left,15)",
         "mapping_type": "key_macro"
     },
     {
