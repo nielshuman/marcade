@@ -1,5 +1,5 @@
 sudo apt update
-pip install flask_socketio PyOpenAL --break-system-packages
+pip install flask_socketio PyOpenAL pulsectl --break-system-packages
 sudo apt install git git-lfs python3-flask python3-eventlet python3-selenium python3-yaml python3-waitress chromium-browser chromium-chromedriver libportaudio2 mpv -y
 
 cd ~/marcade
@@ -26,6 +26,7 @@ if [ ! -L ~/.config/input-remapper-2 ]; then
 fi
 
 chmod +x home.sh
+chmod +x admin.sh
 
 # only do this is files are not identical
 if ! cmp -s shit/wait.png /usr/share/plymouth/themes/pix/splash.png; then
