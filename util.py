@@ -12,7 +12,7 @@ def get_game_by_id(game_id):
     
     for a in admin:
         if a['id'] == game_id:
-            a.update({'path': '..'})
+            a.update({'path': '..', 'p1': 'menu'})
             return a
 
     return None

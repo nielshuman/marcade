@@ -52,15 +52,22 @@
     <div class="subtitle">PLEASE INSERT COIN</div>
     <div id="pacman"></div>
     <div id="mario"></div>
+    <div id="kitty"></div>
+
+    
     <script src="animations/animations.js"></script>
     <script>
         function mario_then_pacman(gap) {
             animateMario();
-            setTimeout(pacman_then_mario, MARIO_DURATION + gap, gap);
+            setTimeout(pacman_then_kitty, MARIO_DURATION + gap, gap);
         }
-        function pacman_then_mario(gap) {
+        function pacman_then_kitty(gap) {
             animatePacman();
-            setTimeout(mario_then_pacman, PACMAN_DURATION + gap, gap)
+            setTimeout(kitty_then_mario, PACMAN_DURATION + gap, gap)
+        }
+        function kitty_then_mario(gap) {
+            animateKitty();
+            setTimeout(mario_then_pacman, MARIO_DURATION + gap, gap);
         }
 
         setTimeout(mario_then_pacman, 5000, 5000);

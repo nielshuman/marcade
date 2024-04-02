@@ -156,11 +156,19 @@
         </div>
     </div>
     <div id="mario"></div>
-    
+    <div id="kitty"></div>
     <script src="animations/animations.js" anonymous"></script>
     <script>
-        setTimeout(animateMario, 5000);
-        setInterval(animateMario, MARIO_DURATION + 5000);
+        function mario_then_kitty(gap) {
+            animateMario();
+            setTimeout(kitty_then_mario, MARIO_DURATION + gap, gap);
+        }
+        function kitty_then_mario(gap) {
+            animateKitty();
+            setTimeout(mario_then_kitty, KITTY_DURATION + gap, gap);
+        }
+
+        setTimeout(mario_then_kitty, 5000, 5000);
     </script>
 
     <script src="/lib/socket.js" crossorigin="anonymous"></script>

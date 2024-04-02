@@ -1,5 +1,18 @@
 /* MARIO */
 
+.animate-kitty {
+    position: absolute;
+    -webkit-animation: play 0.5s steps(4) infinite;
+    animation: run 5s both 1 linear;
+    background: url('kitty.gif') left center;
+    width: 100px;
+    height: 100px;
+    bottom: 0px;
+    left: 0px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 .animate-mario {
     position: absolute;
     width: 71px;

@@ -1,0 +1,40 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 3,
+                "code": 0,
+                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21",
+                "analog_threshold": -1
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "a",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 3,
+                "code": 0,
+                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21",
+                "analog_threshold": 1
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "d",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 290,
+                "origin_hash": "4cb2d7b4d91d6cac6bc47cab39ab2c21"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "space",
+        "mapping_type": "key_macro"
+    }
+]

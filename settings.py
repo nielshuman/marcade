@@ -1,7 +1,7 @@
 from math import inf
 
 # coin value in seconds, use inf for unlimited time
-COIN_TIME_VALUE = 10 * 60 # 10 minutes
+COIN_TIME_VALUE = 20 * 60 # 10 minutes
 SKIP_BOOT_ANIMATION = False
 
 # propably not useful for Marc

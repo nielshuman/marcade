@@ -1,5 +1,6 @@
 const PACMAN_DURATION = 14000;
 const MARIO_DURATION = 5000;
+const KITTY_DURATION = 5000;
 
 function animatePacman() {
     path = document.getElementById('pacman');
@@ -24,4 +25,12 @@ function animateMario() {
     setTimeout(() => {
         mario.classList.remove('animate-mario');
     }, MARIO_DURATION);
+}
+
+const kitty = document.getElementById('kitty')
+function animateKitty() {
+    kitty.classList.add('animate-kitty');
+    setTimeout(() => {
+        kitty.classList.remove('animate-kitty');
+    }, KITTY_DURATION);
 }
