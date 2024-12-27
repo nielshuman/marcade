@@ -1,10 +1,10 @@
-- display_name: Gun Wizard
-  author: robotzap10000 (+ thepartyslime)
-  id: gunwizardv2
-  type: exec
-  p1: gunwizard1
-  p2: gunwizard2
-  command: ['python3', 'main.pyw']
+# - display_name: Gun Wizard
+#   author: robotzap10000 (+ thepartyslime)
+#   id: gunwizardv2
+#   type: exec
+#   p1: gunwizard1
+#   p2: gunwizard2
+#   command: ['python3', 'main.pyw']
 - display_name: Fireboy and Watergirl
   id: fireboy-watergirl
   p1: fireboy2
