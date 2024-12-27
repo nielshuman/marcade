@@ -4,7 +4,7 @@
   type: exec
   command: ['sh', 'home.sh']
 - display_name: Quit marcade
-  author: To desktop
+  author: To desktop (use this to add wifi connection in bottom right corner!)
   id: quit
   type: exec
   # PID: $(cat .marcade.pid)
