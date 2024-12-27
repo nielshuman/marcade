@@ -9,6 +9,11 @@
   id: fireboy-watergirl
   p1: fireboy2
   p2: fireboy1
+- display_name: Pieuwpieuwgame
+  id: pieuw
+  type: online_external
+  url: https://pieuwpieuwgame.justniels.nl/marcade.html
+  author: Niels Huisman
 - display_name: Fly Guy
   id: flyguy
   p1: flyguy1

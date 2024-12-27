@@ -70,6 +70,8 @@ def launch_game(game_id):
     print('gametype: ' + game_type)
     if game_type == 'web':
         kiosk.get(gamesServer.url + game_path)
+    elif game_type == 'online_external':
+        kiosk.get(game['url'])
     elif game_type == 'exec':
         kiosk.get(gamesServer.url + 'wait.png')
         game_process = subprocess.Popen(game['command'], cwd=os.path.join('games', game_path))
