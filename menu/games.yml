@@ -14,6 +14,8 @@
   type: online_external
   url: https://pieuwpieuwgame.justniels.nl/marcade.html
   author: Niels Huisman
+  p1: pieuw1
+  p2: pieuw1
 - display_name: Fly Guy
   id: flyguy
   p1: flyguy1

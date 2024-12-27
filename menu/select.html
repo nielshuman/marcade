@@ -5,139 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marcade Menu</title>
-    <style>
-        body {
-            margin: 0;
-            background: linear-gradient(to right bottom, #000000, 80%, #bf00ff);
-            /* background: linear-gradient(to right bottom in hsl longer hue, #000000, #ae0000); */
-            color: #fff;
-            font-family: Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            animation: gradientAnimation 3.5s infinite alternate-reverse ease;
-            background-size: 200% 200%;
-            cursor: none;
-            overflow: hidden;
-        }
-
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            100% {
-                background-position: 60% 80%;
-            }
-        }
-
-        .menu {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 600px;
-            font-family: 'clacon';
-            font-size: 20px;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .option {
-            cursor: pointer;
-            font-size: 20px;
-            color: #fff;
-            transition: all 0.2s ease-in-out;
-        }
-
-        .option.selected {
-            font-size: 35px;
-            /* font-weight: bold; */
-            /* text-decoration: underline; */
-        }
-
-        .image {
-            width: 300px;
-            height: 200px;
-            background-image: url('path/to/your/image.png');
-            background-size: cover;
-            background-position: center;
-            animation: fadeOut 5s linear infinite;
-        }
-
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
-
-        .title {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 50px;
-            text-align: center;
-            /* margin-bottom: 50px; */
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 20px;
-            text-align: center;
-            margin-bottom: 40px;
-            font-family: 'Press Start 2P', cursive;
-            /* animation: textFlash 1s steps(1) infinite alternate; */
-        }
-
-        @keyframes textFlash {
-            0%, 100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0;
-            }
-        }
-
-        .author {
-            float: right;
-            animation: fadeIn 1s linear;
-            display: none;
-            white-space: pre;
-            color: #6e6e6e;
-        }
-
-        .author.long {
-            font-size: 20px;
-            float: none;
-            padding-top: 5px;
-            padding-bottom: 10px;
-        }
-
-        .option.selected .author {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-
-            50% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
+    <link href="select.css" rel="stylesheet">
     <link href="/fonts.css" rel="stylesheet">
     <link href="animations/animations.css" rel="stylesheet">
 </head>
@@ -157,7 +25,7 @@
     </div>
     <div id="mario"></div>
     <div id="kitty"></div>
-    <script src="animations/animations.js" anonymous"></script>
+    <script src="animations/animations.js" anonymous></script>
     <script>
         function mario_then_kitty(gap) {
             animateMario();
@@ -216,6 +84,9 @@
             options.forEach((option, i) => {
                 if (i === index) {
                     option.classList.add('selected');
+                    if (games[i].type == 'online_external' && !navigator.onLine) {
+                        option.classList.add('disabled')
+                    }
                 } else {
                     option.classList.remove('selected');
                 }
@@ -228,16 +99,24 @@
             } else if (event.key === 'ArrowDown' && selectedIndex < games.length - 1) {
                 selectedIndex++;
             } else if (event.key === 'Enter') {
-                socket.emit('launch_game', games[selectedIndex].id);
+                if (games[selectedIndex].type != 'online_external' || navigator.onLine){
+                    socket.emit('launch_game', games[selectedIndex].id);
+                }
             }
             highlightOption(selectedIndex);
         }
+
+        const OFFLINE_MESSAGE = `MARCADE is offline :(\nDit spel is alleen te spelen met internetverbinding.\nVraag Marc om dit op te lossen!`
 
         fetch('/games.yml').then(r => r.text()).then(t => {
             games = jsyaml.load(t)
             games.forEach((option, index) => {
                 const optionElement = document.createElement('div');
                 optionElement.classList.add('option');
+                if (option.type == 'online_external' && !navigator.onLine) {
+                    optionElement.classList.add('disabled')
+                    option.author = OFFLINE_MESSAGE
+                }
                 // option.author = 'poep';
                 if (option.author) {
                     if (option.author.length > 20) {
@@ -249,6 +128,7 @@
                 } else {
                     authordiv = '';
                 }
+
                 optionElement.innerHTML = (option.display_name || option.id) + authordiv;
                 optionsContainer.appendChild(optionElement);
             });
